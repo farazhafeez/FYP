@@ -1,0 +1,253 @@
+﻿@model IEnumerable<FYP.Models.Question>
+@{
+    ViewBag.Title = "Add_Question";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
+}
+
+<script type="text/javascript">
+    var i;
+    function AddOption() {
+        var val = document.getElementById("getVal").value;
+        i = parseInt(val);
+        if (i < 6) {
+            i++;
+            var table = document.getElementById("OptionDiv");
+            var row = table.insertRow(i);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            cell1.innerHTML = '<input type="checkbox" name="' + i + '" id="check_' + i + '">';
+            cell2.innerHTML = '<label id="label' + i + '">Option' + i + '</label>';
+            cell3.innerHTML = '<textarea class="form-control" name="Option' + i + '" id="op' + i + '"></textarea><span id="span_' + i + '" style="color:red;"></span>';
+            cell4.innerHTML = '<input type="button" value="-Option" class="btn btn-Danger"  onclick="RemoveOption(this)"/>';
+            document.getElementById("getVal").value = i;
+        }
+    }
+    function RemoveOption(row) {
+        i = document.getElementById("getVal").value;
+        var z = row.parentNode.parentNode.rowIndex;
+        document.getElementById("OptionDiv").deleteRow(z);
+        i--;
+        document.getElementById("getVal").value = i;
+    }
+    function validate_form() {
+        var question = document.getElementById("question").value;
+        var op1 = document.getElementById("op1").value;
+        var op2 = document.getElementById("op2").value;
+        var op3 = document.getElementById("op3").value;
+        if (question == "") {
+            document.getElementById("question1").innerHTML = "*Enter the question";
+            return false;
+        }
+        else {
+            document.getElementById("question1").innerHTML = "";
+        }
+        if (op1 == "") {
+            document.getElementById("span_1").innerHTML = "*Enter this option";
+            return false;
+        }
+        else {
+            document.getElementById("span_1").innerHTML = "";
+        }
+        if (op2 == "") {
+            document.getElementById("span_2").innerHTML = "*Enter this option";
+            return false;
+        }
+        else {
+            document.getElementById("span_2").innerHTML = "";
+        }
+        if (op3 == "") {
+            document.getElementById("span_3").innerHTML = "*Enter this option";
+            return false;
+        }
+        else {
+            document.getElementById("span_3").innerHTML = "";
+        }
+
+        if (!document.getElementById("op4") && document.getElementById("check_1").checked == false && document.getElementById("check_2").checked == false && document.getElementById("check_3").checked == false) {
+            $('.alert').show();
+            return false;
+        }
+        else {
+            $('.alert').hide();
+        }
+        if (document.getElementById("op4") && document.getElementById("op4").value == "") {
+            document.getElementById("span_4").innerHTML = "*Enter this option";
+            return false;
+        }
+        else {
+            document.getElementById("span_4").innerHTML = "";
+        }
+        if (!document.getElementById("op5") && document.getElementById("check_1").checked == false && document.getElementById("check_2").checked == false && document.getElementById("check_3").checked == false && document.getElementById("check_4").checked == false) {
+            $('.alert').show();
+            return false;
+        }
+        else {
+            $('.alert').hide();
+        }
+        if (document.getElementById("op5") && document.getElementById("op5").value == "") {
+            document.getElementById("span_5").innerHTML = "*Enter this option";
+            return false;
+        }
+        else {
+            document.getElementById("span_5").innerHTML = "";
+        }
+        if (!document.getElementById("op6") && document.getElementById("check_1").checked == false && document.getElementById("check_2").checked == false && document.getElementById("check_3").checked == false && document.getElementById("check_4").checked == false && document.getElementById("check_5").checked == false) {
+            $('.alert').show();
+            return false;
+        }
+        else {
+            $('.alert').hide();
+        }
+        if (document.getElementById("op6") && document.getElementById("op6").value == "") {
+            document.getElementById("span_6").innerHTML = "*Enter this option";
+            return false;
+        }
+        else {
+            document.getElementById("span_6").innerHTML = "";
+        }
+        if (!document.getElementById("op7") && document.getElementById("check_1").checked == false && document.getElementById("check_2").checked == false && document.getElementById("check_3").checked == false && document.getElementById("check_4").checked == false && document.getElementById("check_5").checked == false && document.getElementById("check_6").checked == false) {
+            $('.alert').show();
+            return false;
+        }
+        else {
+            $('.alert').hide();
+        }
+    }
+</script>
+<style>
+    hr {
+        border: 1px solid #3CCAE6;
+    }
+    .alert{
+        display:none;
+    }
+</style>
+<body>
+    <div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+        <h3><b>Update MCQ</b></h3>
+        <hr>
+        <div style="text-align:center;" class="alert alert-danger alert-dismissable fade in">
+            Select the answer
+        </div>
+        <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+            <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-edit"></span>Update Question</div>
+            <br>
+            @using (Html.BeginForm())
+            {
+                int count=0;        
+                <div class="container">
+                    <table class="table table-striped table-bordered" id="OptionDiv">
+                        @foreach(var qtn in Model)
+                        {
+                        <tr>
+                            <td></td>
+                            <td>@Html.Label("Question")</td>
+                            <td>@Html.TextArea("Questions", @qtn.Questions , new { @class = "form-control" , id = "question" })
+                                <span id="question1" style="color:red;"></span>
+                            </td>
+                            @if(qtn.Type=="MCQ-E")
+                            {
+                             <td>
+                                <select class="form-control" name="Type" style="height:53px;">
+                                    <option selected>MCQ-E</option>
+                                    <option>MCQ-M</option>
+                                    <option>MCQ-D</option>
+                                </select>
+                            </td>   
+                            }
+                            else if(qtn.Type=="MCQ-M")
+                            {
+                                <td>
+                                <select class="form-control" name="Type" style="height:53px;">
+                                    <option>MCQ-E</option>
+                                    <option selected>MCQ-M</option>
+                                    <option>MCQ-D</option>
+                                </select>
+                                </td>
+                            }
+                            else if(qtn.Type=="MCQ-D")
+                            {
+                                <td>
+                                <select class="form-control" name="Type" style="height:53px;">
+                                    <option selected>MCQ-E</option>
+                                    <option>MCQ-M</option>
+                                    <option selected>MCQ-D</option>
+                                </select>
+                                </td>
+                            }
+                        </tr>
+                        foreach(var optn in qtn.Options)
+                        {
+                            count++;
+                        if(count<3)
+                        {
+                            <tr>
+                                @if(optn.Correct_Answer=="yes")
+                                {
+                                    <td><input type="checkbox" name="@count" checked id="check_@count"></td>
+                                }
+                                else
+                                {
+                                    <td><input type="checkbox" name="@count" id="check_@count"></td>
+                                }
+                                <td>@Html.Label("Option"+@count+":")</td>
+                                <td>@Html.TextArea("Option"+@count , @optn.Options , new { @class = "form-control" , id="op"+@count })
+                                    <span id="span_@count" style="color:red;"></span>
+                                </td>
+                            </tr>    
+                        }
+                        else if(count==3)
+                        {
+                            <tr>
+                                @if (optn.Correct_Answer == "yes")
+                                {
+                                    <td><input type="checkbox" name="@count" checked id="check_@count"></td>
+                                }
+                                else
+                                {
+                                <td><input type="checkbox" name="@count" id="check_@count"></td>
+                                }
+                                <td>@Html.Label("Option"+@count+":")</td>
+                                <td>@Html.TextArea("Option"+@count , @optn.Options , new { @class = "form-control" , id = "op" + @count })
+                                    <span id="span_@count" style="color:red;"></span>
+                                </td>
+                                <td><button type="button" onclick="AddOption()" class="btn btn-primary">+ Option</button></td>
+                            </tr>
+                        }
+                        else if(count>3)
+                        {
+                            <tr>
+                                @if (optn.Correct_Answer == "yes")
+                                {
+                                    <td><input type="checkbox" name="@count" checked id="check_@count"></td>
+                                }
+                                else
+                                {
+                                    <td><input type="checkbox" name="@count" id="check_@count"></td>
+                                }
+                                <td>@Html.Label("Option"+@count+":")</td>
+                                <td>@Html.TextArea("Option"+@count , @optn.Options , new { @class = "form-control" , id = "op" + @count })
+                                    <span id="span_@count" style="color:red;"></span>
+                                </td>
+                                <td><button onclick="RemoveOption(this)" class="btn btn-danger">- Option</button></td>
+                            </tr>
+                        }
+                        }
+                        }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="Update Question" class="btn btn-success" onclick="return validate_form()" />
+                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Manage_MCQ", "Teacher", new { Subject_Id = @ViewBag.subject_id})'"><span class="glyphicon glyphicon-backward"></span> Back To Questions</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <input type="text" value="@count" id="getVal" hidden />
+            }
+        </div>
+    </div>
+</body>

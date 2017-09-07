@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Create Paper";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
+}
+
+<body>
+    <div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+        <h3><b>Create Paper</b></h3>
+        <hr>
+        <div class="container scroll" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+            <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-list"></span>Selected Questions</div>
+            <div class="container">
+
+                @using (Html.BeginForm("Send_Paper", "PaperCreation"))
+                {
+                    int count = 1;
+                    <br>
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th style="width:20px;"></th>
+                            <th style="width:950px;"><label>Question's List</label></th>
+                            <th style="text-align: center;"><label>Type</label></th>
+                        </tr>
+
+                        @foreach (var mcq in @ViewBag.MCQ)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="text" value="@ViewBag.Subject_Id" name="Subject_Id" hidden />
+                                    <label>@count .</label>
+                                    <input type="text" name="question_@count" value="@mcq.Question_Id" hidden />
+                                    <input type="text" name="mark_@count" value="@ViewBag.eachmcqmark" hidden />
+
+                                </td>
+                                <td style="height: 30px; min-width: 950px; max-width:950px; overflow:hidden; text-overflow:ellipsis; font-size: 15px;">
+                                    @mcq.Questions
+                                </td>
+                                <td style="text-align:center;">@mcq.Type</td>
+                            </tr>
+                            count++;
+                        }
+                        @foreach (var tf in @ViewBag.TrueFalse)
+                        {
+                            <tr>
+                                <td>
+                                    <label>@count .</label>
+                                    <input type="text" name="question_@count" value="@tf.Question_Id" hidden />
+                                    <input type="text" name="mark_@count" value="@ViewBag.eachtfmark" hidden />
+
+                                </td>
+                                <td style="height: 30px; min-width: 950px; max-width:950px; overflow:hidden; text-overflow:ellipsis; font-size: 15px;">
+                                    @tf.Questions
+                                </td>
+                                <td style="text-align:center;">@tf.Type</td>
+                            </tr>
+                            count++;
+                        }
+                    </table>
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create_Criteria", "PaperCreation" , new { Subject_Id = ViewBag.Subject_Id })'"><span class="glyphicon glyphicon-backward"></span> Cancel</button>
+                    <input type="submit" class="btn btn-success" />
+                }
+
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,194 @@
+﻿@{
+    ViewBag.Title = "CreateExam";
+    Layout = "~/Views/Shared/ExamControllerLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>CreateExam</title>
+
+    <style>
+        .submit-btn {
+            width: 100%;
+        }
+        .multiselect-container {
+            width: 100% !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Create Exam</b></center></div>
+                    <div class="panel-body">
+
+                        <label>Department</label><br>
+                        <select id="dep" multiple="multiple"></select><br><br>
+
+                        <label>Batch</label><br>
+                        <select id="batch" multiple="multiple">
+                            <option disabled selected>-No Department Selected-</option>
+                        </select><br><br>
+
+                        <form action="/ExamController/ExamCreated" method="post">
+                            
+                            <label>Subject</label><br>
+                            <select id="subject" multiple="multiple" name="subjects">
+                                <option disabled selected>-No Batch Selected-</option>
+                            </select>
+                            <label id="subject-error" class="error" for="subject"></label><br><br>
+
+                            <label>Exam Term</label><br>
+                            <select id="examTerm" name="examTerm" class="form-control" style="text-align-last:center;">
+                                <option disabled selected>-No Term Selected-</option>
+                                <option value="Mid">Mid</option>
+                                <option value="Final">Final</option>
+                            </select><br>
+
+                            <label>Exam Session</label><br>
+                            <input type="text" class="form-control" name="examSession" placeholder="Example: Fall 2017"/><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Create">
+                        </form>
+                    </div>
+                </div>
+                <center><a href="/ExamController/Index">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+
+        $("form").validate({
+            rules: {
+                subjects: "required",
+                examTerm: "required",
+                examSession: "required",
+            },
+            messages: {
+                subjects: "You have to select minimum one subject!",
+                examTerm: "Please select a exam term!",
+                examSession: "Please enter exam session!",
+            },
+        });
+
+
+        $(document).ready(function () {
+
+            $("#dep,#batch,#Subject").multiselect({
+                includeSelectAllOption: true,
+                buttonWidth: '100%'
+            });
+            $(".caret").css('float', 'right');
+            $(".caret").css('margin', '8px 0');
+
+            $.ajax({
+
+                type: "POST",
+                url: "/ExamController/AjaxMethodForDepartment",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    len = response.length;
+                    if (len == 0) {
+                        $("#dep").html('<option disabled selected>--There are no Departments in DB--</option>');
+                        $("#batch").html('<option disabled selected>--No Department Selected--</option>');
+                        $("#subject").html('<option disabled selected>--No Batch Selected--</option>');
+                        $("#dep,#batch,#subject").multiselect('rebuild');
+                    }
+                    else {
+                        for (var i = 0; i < len; i++) {
+                            if (i == 0)
+                                $("#dep").html(new Option(response[i], response[i]));
+                            else
+                                $("#dep").append(new Option(response[i], response[i]));
+                        }
+                        $("#dep").multiselect('rebuild');
+                    }
+                },
+                error: function (response) {
+                    $("#dep").html('<option disabled selected>--There are no Departments in DB--</option>');
+                    $("#batch").html('<option disabled selected>--No Department Selected--</option>');
+                    $("#subject").html('<option disabled selected>--No Batch Selected--</option>');
+                    $("#dep,#batch,#subject").multiselect('rebuild');
+                }
+            });
+        });
+
+        $("#dep").change(function () {
+            var len;
+            $.ajax({
+
+                type: "POST",
+                url: "/ExamController/AjaxMethodForBatch",
+                data: JSON.stringify({ departments: $("#dep").val() }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    len = response.length;
+                    if (len == 0) {
+                        $("#batch").html('<option disabled selected>-Selected Department does not have any Batch-</option>');
+                        $("#subject").html('<option disabled selected>-No Batch Selected-</option>');
+                        $("#batch,#subject").multiselect('rebuild');
+                    }
+                    else {
+                        for (var i = 0; i < len; i++) {
+                            if (i == 0)
+                                $("#batch").html(new Option(response[i], response[i]));
+                            else
+                                $("#batch").append(new Option(response[i], response[i]));
+                        }
+                        $("#batch").multiselect('rebuild');
+                    }
+                },
+                error: function (response) {
+                    $("#batch").html('<option disabled selected>-No Department Selected-</option>');
+                    $("#subject").html('<option disabled selected>-No Batch Selected-</option>');
+                    $("#batch,#subject").multiselect('rebuild');                }
+            });
+        });
+
+        $("#batch").change(function () {
+            var len;
+            $.ajax({
+
+                type: "POST",
+                url: "/ExamController/AjaxMethodForSubject",
+                data: JSON.stringify({ batches: $("#batch").val() }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    len = response.length;
+                    if (len == 0) {
+                        $("#subject").html('<option disabled selected>-Selected Batch does not have any Subjects-</option>');
+                        $("#subject").multiselect('rebuild');
+                    }
+                    else {
+                        for (var i = 0; i < len; i++) {
+                            if (i == 0)
+                                $("#subject").html(new Option("Subject Id: " + response[i].Subject_Id + ", Subject Name: " + response[i].Subject_Name + ", Batch: " + response[i].Batch_Id + ", Section: " + response[i].Section, response[i].Subject_Id));
+                            else
+                                $("#subject").append(new Option("Subject Id: " + response[i].Subject_Id + ", Subject Name: " + response[i].Subject_Name + ", Batch: " + response[i].Batch_Id + ", Section: " + response[i].Section, response[i].Subject_Id));
+                        }
+                        $("#subject").multiselect('rebuild');
+                    }
+                },
+                error: function (response) {
+                    $("#subject").html('<option disabled selected>-No Batch Selected-</option>');
+                    $("#subject").multiselect('rebuild');
+                }
+            });
+        });
+
+    });
+
+</script>

@@ -1,0 +1,220 @@
+﻿@model FYP.Models.User
+@{
+    ViewBag.Title = "AddStudent";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+<style>
+    .submit-btn {
+        width: 100%;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <center><a href="/SuperUser/ManageStudent"><b>Go Back</b></a></center><br>
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Create An Account For Student</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/AddStudent" method="post">
+
+                            <label>Id</label>
+                            <input type="text" name="User_Id" class="form-control" placeholder="Example: johnsmith@gmail.com"/><br>
+
+                            <label>First Name</label>
+                            <input type="text" name="First_Name" class="form-control" placeholder="Example: john" /><br>
+
+                            <label>Last Name</label>
+                            <input type="text" name="Last_Name" class="form-control" placeholder="Example: smith" /><br>
+
+                            <label>Password</label>
+                            <input type="password" name="Password" id="Password" class="form-control"/><br>
+
+                            <label>Confirm Password</label>
+                            <input type="password" name="CPassword" class="form-control" /><br>
+
+                            <label>Contact Number</label>
+                            <input type="text" name="Contact_No" class="form-control" placeholder="Example: 0300*******" /><br>
+
+                            <label>Department</label>
+                            <select name="Department_Id" id="Department_Id" class="form-control"></select><br>
+
+                            <label>Batch</label>
+                            <select name="Batch_Id" id="Batch_Id" class="form-control">
+                                <option disabled selected>--No Department Selected--</option>    
+                            </select><br>
+
+                            <label>Section</label>
+                            <select id="Section" name="Section" class="form-control">
+                                <option selected disabled>--Select a Section--</option>
+                                <option value="a">A</option>
+                                <option value="b">B</option>
+                                <option value="c">C</option>
+                                <option value="d">D</option>
+                                <option value="e">E</option>
+                                <option value="f">F</option>
+                                <option value="g">G</option>
+                                <option value="h">H</option>
+                                <option value="i">I</option>
+                                <option value="j">J</option>
+                                <option value="k">K</option>
+                                <option value="l">L</option>
+                                <option value="m">M</option>
+                                <option value="n">N</option>
+                                <option value="o">O</option>
+                                <option value="p">P</option>
+                                <option value="q">Q</option>
+                                <option value="r">R</option>
+                                <option value="s">S</option>
+                                <option value="t">T</option>
+                                <option value="u">U</option>
+                                <option value="v">V</option>
+                                <option value="w">W</option>
+                                <option value="x">X</option>
+                                <option value="y">Y</option>
+                                <option value="z">Z</option>
+                            </select>
+                            <label id="Section-error" class="error" for="Section"></label><br><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Register">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+
+        jQuery.validator.addMethod("pwcheck",
+            function (value, element, param) {
+                if (this.optional(element)) {
+                    return true;
+                } else if (!/[a-z]/.test(value)) {
+                    return false;
+                } else if (!/[0-9]/.test(value)) {
+                    return false;
+                }
+                else if (!/[a-z0-9]{8,}/.test(value)) {
+                    return false;
+                }
+
+                return true;
+            });
+
+        $("form").validate({
+            rules: {
+                First_Name: "required",
+                Last_Name: "required",
+                Department_Id: "required",
+                Batch_Id: "required",
+                Section: "required",
+                Password: {
+                    required: true,
+                    pwcheck: true,
+                },
+                CPassword: {
+                    required: true,
+                    equalTo: "#Password",
+                },
+                Contact_No: {
+                    required: true,
+                    number: true,
+                    minlength: 11,
+                    maxlength: 11,
+                },
+                User_Id: {
+                    required: true,
+                    remote: {
+                        url: "/SuperUser/IsUser_IdAvailable",
+                        type: "post",
+                        data: {
+                            function() { return $("#User_Id").val(); },
+                        },
+                    },
+                },
+            },
+            messages: {
+                First_Name: "Please enter first name!",
+                Last_Name: "Please enter last name!",
+                Department_Id: "Please select a department!",
+                Batch_Id: "Please select a batch!",
+                Section: "Please select a section!",
+                Password: {
+                    required: "Please enter password!",
+                    pwcheck: "Password must contain eight characters minimum, at least one letter and one number!",
+                },
+                CPassword: {
+                    required: "Please enter password!",
+                    equalTo: "Password doesn't match!",
+                },
+                Contact_No: {
+                    required: "Please enter a Contact Number!",
+                    number: "It must be a number!",
+                    minlength: "There must be 11 digits in contact no.!",
+                    maxlength: "There must be 11 digits in contact no.!",
+                },
+                User_Id: {
+                    required: "Please enter user id!",
+                    remote: "User id already exists!",
+                },
+
+            },
+            submit: function (form) {
+                form.submit();
+            }
+        });
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "/SuperUser/AjaxMethodForDepartment",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    len = response.length;
+                    if (len == 0) {
+                        $("#Department_Id").html('<option disabled selected>--There are no Departments in DB---</option>');
+                        $("#Batch_Id").html('<option disabled selected>--No Department Selected--</option>');
+                    }
+                    else {
+                        $("#Department_Id").html('<option disabled selected>--Select a Department--</option>');
+                        for (var i = 0; i < len; i++) {
+                            $("#Department_Id").append(new Option(response[i].Department_Id, response[i].Department_Id));
+                        }
+                    }
+                },
+                error: function (response) {
+                    $("#Department_Id").html('<option disabled selected>--There are no Departments in DB--</option>');
+                    $("#Batch_Id").html('<option disabled selected>--No Department Selected--</option>');
+                }
+            });
+        });
+
+        $("#Department_Id").change(function () {
+            $.ajax({
+                type: "POST",
+                url: "/SuperUser/AjaxMethodForBatch",
+                data: JSON.stringify({ Department_Id: $("#Department_Id").val() }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                        $("#Batch_Id").html('<option disabled selected>--Select a Batch--</option>');
+                        for (var i in response) {
+                            $("#Batch_Id").append(new Option(response[i].Batch_Id, response[i].Batch_Id));
+                        }
+                },
+                error: function (response) {
+                    $("#Batch_Id").html('<option disabled selected>--There are no batches in DB--</option>');
+                }
+            });
+        });
+
+    });
+</script>

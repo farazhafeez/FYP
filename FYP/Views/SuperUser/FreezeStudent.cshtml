@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "FreezeStudent";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+<style>
+    .submit-btn {
+        width: 100%;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Freeze @Model.User_Id</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/FreezeStudent" method="post">
+
+                            <input type="text" name="User_Id" value="@Model.User_Id" hidden /><br>
+
+                            <label>Freezing Date</label>
+                            <input type="datetime-local" name="Freezing_Date" class="form-control" /><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Save" />
+                        </form>
+
+                    </div>
+                </div>
+                <center><a href="/SuperUser/ManageStudent">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+    
+        $("form").validate({
+            rules: {
+                Freezing_Date: "required",
+            },
+            messages: {
+                Freezing_Date: "Please select a freezing date !",
+            },
+            submit: function (form) {
+                form.submit();
+            }
+        });
+    });
+
+</script>

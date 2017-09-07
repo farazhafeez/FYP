@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Add_Question";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
+}
+
+<script type="text/javascript">
+    function validate_form()
+    {
+        if (document.getElementById("question").value == "") {
+            document.getElementById("question1").innerHTML = "*Enter the question";
+            return false;
+        }
+        else {
+            document.getElementById("question1").innerHTML = "";
+        }
+        if (document.getElementById("selecttype").value == "Type") {
+            document.getElementById("selecttype1").innerHTML = "*Select the type";
+            return false;
+        }
+        else {
+            document.getElementById("selecttype1").innerHTML = "";
+        }
+        if (document.getElementById("r1").checked == false && document.getElementById("r2").checked == false) {
+            $('.alert').show();
+            return false;
+        }
+        else {
+            $('.alert').hide();
+        }
+    }
+</script>
+
+<style>
+    hr {
+        border: 1px solid #3CCAE6;
+    }
+    .alert{
+        display:none;
+    }
+</style>
+<body>
+    <div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+        <h3><b>Add True/False</b></h3>
+        <hr>
+        <div style="text-align:center;" class="alert alert-danger alert-dismissable fade in">
+            Select the answer
+        </div>
+        <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+            <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-edit"></span>Add True/False</div>
+            <br>
+            @using (Html.BeginForm())
+            {
+                <div class="container">
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <td>@Html.Label("Question")</td>
+                            <td>@Html.TextArea("Questions", new { @class = "form-control" , id="question" })
+                            <span id="question1" style="color:red;"></span>
+                            </td>
+                            <td>
+                                <select class="form-control" name="Type" style="height:53px;" id="selecttype">
+                                    <option selected disabled>Type</option>
+                                    <option>True/False-E</option>
+                                    <option>True/False-M</option>
+                                    <option>True/False-D</option>
+                                </select>
+                                <span id="selecttype1" style="color:red;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="radio1" value="True" id="r1">@Html.Label("True")</td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="radio1" value="False" id="r2">@Html.Label("False")</td>
+                        </tr>
+                        <tr>                            
+                            <td></td>
+                            <td>
+                            <input type="submit" value="Add True/False" class="btn btn-success" onclick="return validate_form()">
+                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Manage_TrueFalse", "Teacher", new { Subject_Id=@ViewBag.subject_id})'"><span class="glyphicon glyphicon-backward"></span> Back To Questions</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <input type="text" value="@ViewBag.subject_id" name="sub_id" hidden/>
+            }
+        </div>
+    </div>
+</body>

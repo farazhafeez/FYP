@@ -1,0 +1,135 @@
+﻿@model FYP.Models.User
+@{
+    ViewBag.Title = "EditTeacher";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+<style>
+    .submit-btn {
+        width: 100%;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Edit @Model.User_Id's Account</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/EditTeacher" method="post">
+
+                            <input type="text" name="User_Id" value="@Model.User_Id" hidden /><br>
+
+                            <label>First Name</label>
+                            <input type="text" name="First_Name" value="@Model.First_Name" class="form-control" /><br>
+
+                            <label>Last Name</label>
+                            <input type="text" name="Last_Name" value="@Model.Last_Name" class="form-control" /><br>
+
+                            <label>Password</label>
+                            <input type="password" name="Password" value="@Model.Password" class="form-control" /><br>
+
+                            <label>Contact</label>
+                            <input type="text" name="Contact_No" value="@Model.Contact_No" class="form-control" /><br>
+
+                            <label>Department</label>
+                            <select name="Department_Id" id="Department_Id" class="form-control">
+                                <option disabled>--Select a Department--</option>
+                                <option value="@Model.Department_Id" selected>@Model.Department_Id</option>
+                            </select><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Save" />
+                        </form>
+
+                    </div>
+                </div>
+                <center><a href="/SuperUser/ManageTeacher">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+
+        jQuery.validator.addMethod("pwcheck",
+            function (value, element, param) {
+                if (this.optional(element)) {
+                    return true;
+                } else if (!/[a-z]/.test(value)) {
+                    return false;
+                } else if (!/[0-9]/.test(value)) {
+                    return false;
+                }
+                else if (!/[a-z0-9]{8,}/.test(value)) {
+                    return false;
+                }
+
+                return true;
+            });
+
+        $("form").validate({
+            rules: {
+                First_Name: "required",
+                Last_Name: "required",
+                Password: {
+                    required: true,
+                    pwcheck: true,
+                },
+                Department_Id: "required",
+                Contact_No: {
+                    required: true,
+                    number: true,
+                    minlength: 11,
+                    maxlength: 11,
+                },
+            },
+            messages: {
+                First_Name: "Please enter first name !",
+                Last_Name: "Please enter last name !",
+                Password: {
+                    required: "Please enter password!",
+                    pwcheck: "Password must contain eight characters minimum, at least one letter and one number!",
+                },
+                Department_Id: "Please select a department !",
+                Contact_No: {
+                    required: "Please enter a Contact Number !",
+                    number: "It must be a number !",
+                    minlength: "There must be 11 digits in contact no. !",
+                    maxlength: "There must be 11 digits in contact no. !",
+                },
+            },
+            submit: function (form) {
+                form.submit();
+            }
+        });
+
+
+        $(document).ready(function () {
+            var dep = $("#Department_Id").val();
+            
+            $.ajax({
+                type: "POST",
+                url: "/SuperUser/AjaxMethodForDepartment",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    len = response.length;
+                    if (len == 0) {
+                        $("#Department_Id").html('<option disabled selected>--There are no Departments in DB-</option>');
+                    }
+                    else {
+                        for (var i = 0; i < len; i++) {
+                            if (!(dep == response[i].Department_Id))
+                                $("#Department_Id").append(new Option(response[i].Department_Id, response[i].Department_Id));
+                        }
+                    }
+                },
+                error: function (response) {
+                    $("#Department_Id").html('<option disabled selected>--There are no Departments in DB--</option>');
+                }
+            }); 
+        });
+    });
+</script>

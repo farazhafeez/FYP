@@ -1,0 +1,509 @@
+﻿@{
+    ViewBag.Title = "Add_Question";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
+}
+
+<style>
+    hr {
+        border: 1px solid #3CCAE6;
+    }
+</style>
+<script type="text/javascript">
+    function validate()
+    {
+        var marks = document.getElementById("marks").value;
+        var selectedmcq = document.getElementById("selectmcq").value;
+        var mcqmark = document.getElementById("mcqmarks").value;
+        var selectedtruefalse = document.getElementById("selecttf").value;
+        var truefalsemark = document.getElementById("tfmarks").value;
+
+        if (marks == "")
+        {
+            document.getElementById("span2").innerHTML = "*Fill Marks Field";
+            return false;
+        }
+        else
+        {
+            document.getElementById("span2").innerHTML = "";
+        }
+        if(marks > 100 || marks < 1)
+        {
+            document.getElementById("span2").innerHTML = "*Marks Should Be Between 1 and 100";
+            return false;
+        }
+        else
+        {
+
+        }
+        if (marks != "" && isNaN(marks) == true)
+        {
+            document.getElementById("span2").innerHTML = "*Input Value Must Be A Number";
+            return false;
+        }
+        else
+        {
+            document.getElementById("span2").innerHTML = "";
+        }
+        if (marks != "" && marks % 1 != 0)
+        {
+            document.getElementById("span2").innerHTML = "*Input Value Must Be Integer Value";
+            return false;
+        }
+        else
+        {
+            document.getElementById("span2").innerHTML = "";
+        }
+
+        if (selectedmcq != "select..." && selectedtruefalse != "select...") {
+            var a = parseInt(selectedmcq);
+            var b = parseInt(selectedtruefalse);
+            var check = a + b;
+            if (check != 100) {
+                document.getElementById("span5").innerHTML = "Percentage doesn't match";
+                document.getElementById("span7").innerHTML = "Percentage doesn't match";
+                return false;
+            }
+            else {
+                document.getElementById("span5").innerHTML = "";
+                document.getElementById("span7").innerHTML = "";
+            }
+        }
+
+        if (selectedmcq == "select...") {
+            document.getElementById("span5").innerHTML = "*Select criteria for MCQ'S";
+            return false;
+        }
+        else {
+            document.getElementById("span5").innerHTML = "";
+        }
+
+        if (mcqmark == "marks") {
+            document.getElementById("span6").innerHTML = "*Select marks for each MCQ'S";
+            return false;
+        }
+        else {
+            document.getElementById("span6").innerHTML = "";
+        }
+        if (selectedtruefalse == "select...") {
+            document.getElementById("span7").innerHTML = "*Select criteria for True/False";
+            return false;
+        }
+        else {
+            document.getElementById("span7").innerHTML = "";
+        }
+        if (truefalsemark == "marks") {
+            document.getElementById("span8").innerHTML = "*Select marks for each true/false";
+            return false;
+        }
+        else {
+            document.getElementById("span8").innerHTML = "";
+        }
+        if(document.getElementById("easymcq") && document.getElementById("mediummcq") && document.getElementById("difficultmcq"))
+        {
+            if (document.getElementById("easymcq").value == "Easy(%)") {
+                document.getElementById("easymcq1").innerHTML = "choose criteria for easy MCQ'S";
+                return false;
+            }
+            else {
+                document.getElementById("easymcq1").innerHTML = "";
+            }
+
+            if (document.getElementById("mediummcq").value == "Medium(%)") {
+                document.getElementById("mediummcq1").innerHTML = "choose criteria for Medium MCQ'S";
+                return false;
+            }
+            else {
+                document.getElementById("mediummcq1").innerHTML = "";
+            }
+
+            if (document.getElementById("difficultmcq").value == "Difficult(%)") {
+                document.getElementById("difficultmcq1").innerHTML = "choose criteria for difficult MCQ'S";
+                return false;
+            }
+            else {
+                document.getElementById("difficultmcq1").innerHTML = "";
+            }
+            if (document.getElementById("easymcq").value != "Easy(%)" && document.getElementById("mediummcq").value != "Medium(%)" && document.getElementById("difficultmcq").value != "Difficult(%)") {
+                var a = parseInt(document.getElementById("easymcq").value);
+                var b = parseInt(document.getElementById("mediummcq").value);
+                var c = parseInt(document.getElementById("difficultmcq").value);
+                var d = a + b + c;
+                if (d != 100) {
+                    document.getElementById("easymcq1").innerHTML = "Invalid Condition";
+                    document.getElementById("mediummcq1").innerHTML = "Invalid Condition";
+                    document.getElementById("difficultmcq1").innerHTML = "Invalid Condition";
+                    return false;
+                }
+                else {
+                    document.getElementById("easymcq1").innerHTML = "";
+                    document.getElementById("mediummcq1").innerHTML = "";
+                    document.getElementById("difficultmcq1").innerHTML = "";
+                }
+            }
+        }
+        if (document.getElementById("easytf") && document.getElementById("mediumtf") && document.getElementById("difficulttf"))
+        {
+            if (document.getElementById("easytf").value == "Easy(%)") {
+                document.getElementById("easytf1").innerHTML = "choose criteria for easy True/False";
+                return false;
+            }
+            else {
+                document.getElementById("easytf1").innerHTML = "";
+            }
+
+            if (document.getElementById("mediumtf").value == "Medium(%)") {
+                document.getElementById("mediumtf1").innerHTML = "choose criteria for Medium True/False";
+                return false;
+            }
+            else {
+                document.getElementById("mediumtf1").innerHTML = "";
+            }
+
+            if (document.getElementById("difficulttf").value == "Difficult(%)") {
+                document.getElementById("difficulttf1").innerHTML = "choose criteria for difficult True/False";
+                return false;
+            }
+            else {
+                document.getElementById("difficulttf1").innerHTML = "";
+            }
+            if (document.getElementById("easytf").value != "Easy(%)" && document.getElementById("mediumtf").value != "Medium(%)" && document.getElementById("difficulttf").value != "Difficult(%)") {
+                var a = parseInt(document.getElementById("easytf").value);
+                var b = parseInt(document.getElementById("mediumtf").value);
+                var c = parseInt(document.getElementById("difficulttf").value);
+                var d = a + b + c;
+                if (d != 100) {
+                    document.getElementById("easytf1").innerHTML = "Invalid Condition";
+                    document.getElementById("mediumtf1").innerHTML = "Invalid Condition";
+                    document.getElementById("difficulttf1").innerHTML = "Invalid Condition";
+                    return false;
+                }
+                else {
+                    document.getElementById("easytf1").innerHTML = "";
+                    document.getElementById("mediumtf1").innerHTML = "";
+                    document.getElementById("difficulttf1").innerHTML = "";
+                }
+            }
+        }
+
+    }
+    function MCQ_Criteria() {
+        var button = document.getElementById("button1").innerHTML;
+        if (button == "More Option") {
+            var div = document.createElement('div');
+            div.innerHTML = '<div id="remove_div1">' +
+                                        '<div class="row">' +
+                                        '<div class="col-md-3" style="text-align:right;">' +
+                                        '</div>' +
+                                        '<div class="col-md-2">' +
+                                            '<select class="form-control" id="easymcq" name="mcqe">' +
+                                                '<option selected disabled>Easy(%)</option>' +
+                                                '<option value="0">0.0%</option>' +
+                                                '<option value="10">10.0%</option>' +
+                                                '<option value="20">20.0%</option>' +
+                                                '<option value="30">30.0%</option>' +
+                                                '<option value="40">40.0%</option>' +
+                                                '<option value="50">50.0%</option>' +
+                                                '<option value="60">60.0%</option>' +
+                                                '<option value="70">70.0%</option>' +
+                                                '<option value="80">80.0%</option>' +
+                                                '<option value="90">90.0%</option>' +
+                                                '<option value="100">100.0%</option>' +
+                                             '</select>' +
+                                                '<span id="easymcq1" style="color:red;"></span>'+
+                                        '</div>' +
+
+                                        '<div class="col-md-2">' +
+                                            '<select class="form-control" id="mediummcq" name="mcqm">' +
+                                                '<option selected disabled>Medium(%)</option>' +
+                                                '<option value="0">0.0%</option>' +
+                                                '<option value="10">10.0%</option>' +
+                                                '<option value="20">20.0%</option>' +
+                                                '<option value="30">30.0%</option>' +
+                                                '<option value="40">40.0%</option>' +
+                                                '<option value="50">50.0%</option>' +
+                                                '<option value="60">60.0%</option>' +
+                                                '<option value="70">70.0%</option>' +
+                                                '<option value="80">80.0%</option>' +
+                                                '<option value="90">90.0%</option>' +
+                                                '<option value="100">100%</option>' +
+                                                '</select>' +
+                                                '<span id="mediummcq1" style="color:red;"></span>' +
+                                        '</div>' +
+
+                                        '<div class="col-md-2">' +
+                                            '<select class="form-control" id="difficultmcq" name="mcqd">' +
+                                                '<option selected disbaled>Difficult(%)</option>' +
+                                                '<option value="0">0.0%</option>' +
+                                                '<option value="10">10.0%</option>' +
+                                                '<option value="20">20.0%</option>' +
+                                                '<option value="30">30.0%</option>' +
+                                                '<option value="40">40.0%</option>' +
+                                                '<option value="50">50.0%</option>' +
+                                                '<option value="60">60.0%</option>' +
+                                                '<option value="70">70.0%</option>' +
+                                                '<option value="80">80.0%</option>' +
+                                                '<option value="90">90.0%</option>' +
+                                                '<option value="100">100%</option>' +
+                                                '</select>' +
+                                                '<span id="difficultmcq1" style="color:red;"></span>' +
+                                        '</div>' +
+                                     '</div>' +
+                                '</div>';
+            document.getElementById('create_div1').appendChild(div);
+            document.getElementById("button1").innerHTML = "Less Option";
+        }
+        else if (button == "Less Option") {
+            document.getElementById("remove_div1").remove();
+            document.getElementById("button1").innerHTML = "More Option";
+        }
+    }
+
+    function TF_Criteria() {
+        var button = document.getElementById("button2").innerHTML;
+        if (button == "More Option") {
+            var div = document.createElement('div');
+            div.innerHTML = '<div id="remove_div2">' +
+                                        '<div class="row">' +
+                                        '<div class="col-md-3" style="text-align:right;">' +
+                                        '</div>' +
+                                        '<div class="col-md-2">' +
+                                            '<select class="form-control" id="easytf" name="tfe">' +
+                                                '<option selected disabled>Easy(%)</option>' +
+                                                '<option value="0">0.0%</option>' +
+                                                '<option value="10">10.0%</option>' +
+                                                '<option value="20">20.0%</option>' +
+                                                '<option value="30">30.0%</option>' +
+                                                '<option value="40">40.0%</option>' +
+                                                '<option value="50">50.0%</option>' +
+                                                '<option value="60">60.0%</option>' +
+                                                '<option value="70">70.0%</option>' +
+                                                '<option value="80">80.0%</option>' +
+                                                '<option value="90">90.0%</option>' +
+                                                '<option value="100">100%</option>' +
+                                                '</select>' +
+                                                '<span id="easytf1" style="color:red;"></span>' +
+                                        '</div>' +
+
+                                        '<div class="col-md-2">' +
+                                            '<select class="form-control" id="mediumtf" name="tfm">' +
+                                                '<option selected disabled>Medium(%)</option>' +
+                                                '<option value="0">0.0%</option>' +
+                                                '<option value="10">10.0%</option>' +
+                                                '<option value="20">20.0%</option>' +
+                                                '<option value="30">30.0%</option>' +
+                                                '<option value="40">40.0%</option>' +
+                                                '<option value="50">50.0%</option>' +
+                                                '<option value="60">60.0%</option>' +
+                                                '<option value="70">70.0%</option>' +
+                                                '<option value="80">80.0%</option>' +
+                                                '<option value="90">90.0%</option>' +
+                                                '<option value="100">100%</option>' +
+                                                '</select>' +
+                                                '<span id="mediumtf1" style="color:red;"></span>' +
+                                        '</div>' +
+
+                                        '<div class="col-md-2">' +
+                                            '<select class="form-control" id="difficulttf" name="tfd">' +
+                                                '<option selected disabled>Difficult(%)</option>' +
+                                                '<option value="0">0.0%</option>' +
+                                                '<option value="10">10.0%</option>' +
+                                                '<option value="20">20.0%</option>' +
+                                                '<option value="30">30.0%</option>' +
+                                                '<option value="40">40.0%</option>' +
+                                                '<option value="50">50.0%</option>' +
+                                                '<option value="60">60.0%</option>' +
+                                                '<option value="70">70.0%</option>' +
+                                                '<option value="80">80.0%</option>' +
+                                                '<option value="90">90.0%</option>' +
+                                                '<option value="100">100%</option>' +
+                                                '</select>' +
+                                                '<span id="difficulttf1" style="color:red;"></span>' +
+                                        '</div>' +
+                                     '</div>' +
+                                '</div>';
+            document.getElementById('create_div2').appendChild(div);
+            document.getElementById("button2").innerHTML = "Less Option";
+        }
+        else if (button == "Less Option") {
+            document.getElementById("remove_div2").remove();
+            document.getElementById("button2").innerHTML = "More Option";
+        }
+    }
+</script>
+<body>
+    <div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+        <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+            <font style="font-size:12px; margin-left:30px;">
+                <b>Note:</b>
+                Your selected questions should be 1 number less than the quetions in your question bank.
+            </font>
+            <table>
+                <tr>
+                    <td style="width:550px;">
+                        <font style="margin:30px; margin-right:30px;">*</font>
+                        <font style="font-size:14px;">You have <b>@ViewBag.easymcq (@ViewBag.easymcqpercentage %) Easy</b> ,  <b>@ViewBag.mediummcq (@ViewBag.mediummcqpercentage %) Medium</b> and <b>@ViewBag.difficultmcq (@ViewBag.difficultmcqpercentage %) Difficult</b> MCQ questions.</font>
+                    </td>
+                    <td>
+                        <font style="font-size:14px;"><b>Total MCQ's:</b> @ViewBag.totalmcq </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <font style="margin:30px; margin-right:30px;">*</font>
+                        <font style="font-size:14px;">You have <b>@ViewBag.easytf (@ViewBag.easytfpercentage %) Easy</b> ,  <b>@ViewBag.mediumtf (@ViewBag.mediumtfpercentage %) Medium</b> and <b>@ViewBag.difficulttf (@ViewBag.difficulttfpercentage %) Difficult</b> MCQ questions.</font>
+                    </td>
+                    <td>
+                        <font style="font-size:14px;"><b>Total True/False:</b> @ViewBag.totaltf </font>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        @if (ViewBag.Error_Message != null)
+        {
+            <div class="alert alert-danger alert-dismissable fade in" style="text-align:center;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @ViewBag.Error_Message
+            </div>
+        }
+        <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+            <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-edit"></span>Create</div>
+            <br>
+            @using (Html.BeginForm("Create_Paper", "PaperCreation"))
+            {
+                <div class="container">
+                    <input type="text" value="@ViewBag.subject_id" name="subject_id" hidden />
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3" style="text-align:right;">
+                                    <label style="line-height:35px;">Subject Name:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="subject" name="subject">
+                                        <option>@ViewBag.subject</option>
+                                    </select>
+                                    <span id="span1" style="color:red;"></span>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-3" style="text-align:right;">
+                                    <label style="line-height:35px;">Total Marks:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="marks" name="totalmarks">
+                                        <option>
+                                            @ViewBag.Marks
+                                        </option>
+                                    </select>
+                                    <span id="span2" style="color:red;"></span>
+                                </div>
+                            </div><br>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-9" style="text-align:right;">
+                                    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#Criteria">Define Criteria</button>
+                                </div>
+                            </div><br>
+                            <div id="Criteria" class="collapse">
+                                <div class="row">
+                                    <div class="col-md-3" style="text-align:right;">
+                                        <label style="line-height:35px;">Total MCQ's in %:</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" name="mcqs" id="selectmcq">
+                                            <option selected disabled>select...</option>
+                                            <option value="0">0.0%</option>
+                                            <option value="10">10.0%</option>
+                                            <option value="20">20.0%</option>
+                                            <option value="30">30.0%</option>
+                                            <option value="40">40.0%</option>
+                                            <option value="50">50.0%</option>
+                                            <option value="60">60.0%</option>
+                                            <option value="70">70.0%</option>
+                                            <option value="80">80.0%</option>
+                                            <option value="90">90.0%</option>
+                                            <option value="100">100.0%</option>
+                                        </select>
+                                        <span id="span5" style="color:red;"></span>
+                                    </div>
+                                    <div class="col-md-1" style="text-align:center;">
+                                        <label style="line-height:35px;">Each_Of:</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-control" name="mcqmark" id="mcqmarks">
+                                            <option selected disabled>marks</option>
+                                            <option value="1">1 marks</option>
+                                            <option value="2">2 marks</option>
+                                        </select>
+                                        <span id="span6" style="color:red;"></span>
+                                    </div>
+                                </div><br>
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6" style="text-align:right;">
+                                        <button id="button1" type="button" class="btn btn-default" onclick="MCQ_Criteria()">More Option</button>
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="create_div1">
+
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3" style="text-align:right;">
+                                        <label style="line-height:35px;">Total True/False in %:</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" name="truefalse" id="selecttf">
+                                            <option selected disabled>select...</option>
+                                            <option value="0">0.0%</option>
+                                            <option value="10">10.0%</option>
+                                            <option value="20">20.0%</option>
+                                            <option value="30">30.0%</option>
+                                            <option value="40">40.0%</option>
+                                            <option value="50">50.0%</option>
+                                            <option value="60">60.0%</option>
+                                            <option value="70">70.0%</option>
+                                            <option value="80">80.0%</option>
+                                            <option value="90">90.0%</option>
+                                            <option value="100">100.0%</option>
+                                        </select>
+                                        <span id="span7" style="color:red;"></span>
+                                    </div>
+                                    <div class="col-md-1" style="text-align:center;">
+                                        <label style="line-height:35px;">Each_Of:</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-control" name="truefalsemark" id="tfmarks">
+                                            <option selected disabled>marks</option>
+                                            <option value="1">1 marks</option>
+                                        </select>
+                                        <span id="span8" style="color:red;"></span>
+                                    </div>
+                                </div><br>
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6" style="text-align:right;">
+                                        <button type="button" id="button2" class="btn btn-default" onclick="TF_Criteria()">More Option</button>
+                                    </div>
+                                </div><br>
+                                <div id="create_div2">
+
+                                </div><br>
+                                <div class="row">
+                                    <div class="col-md-9" style="text-align:right;">
+                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Exam_Status", "PaperCreation")'"><span class="glyphicon glyphicon-backward"></span> Cancel</button>
+                                        <input type="submit" value="Create Paper" class="btn btn-success" onclick="return validate()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>

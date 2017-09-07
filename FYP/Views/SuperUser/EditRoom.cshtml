@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "EditRoom";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+<style>
+    .submit-btn {
+        width: 100%;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Edit Room</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/EditRoom" method="post">
+
+                            <label>Room Id</label>
+                            <input type="text" name="Room_Id" id="Room_Id" readonly value="@Model.Room_Id" class="form-control" placeholder="Example: 1a" /><br>
+
+                            <label>Room Capacity</label>
+                            <input type="text" name="Room_Capacity" value="@Model.Room_Capacity" class="form-control" placeholder="Example: 40" /><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Add">
+                        </form>
+                    </div>
+                </div>
+                <center><a href="/SuperUser/ManageRoom">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+
+        $("form").validate({
+            rules: {
+                Room_Capacity: {
+                    required: true,
+                    number: true,
+                },
+            },
+            messages: {
+                Room_Capacity: {
+                    required: "Please enter room capacity!",
+                    number: "It must be a number!",
+                },
+            },
+            submit: function (form) {
+                form.submit();
+            }
+        });
+    });
+</script>

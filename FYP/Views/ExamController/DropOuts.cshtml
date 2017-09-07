@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "DropOuts";
+    Layout = "~/Views/Shared/ExamControllerLayout.cshtml";
+}
+
+<html>
+<head>
+    <style>
+        #tr {
+            height: 40px;
+            width: 600px;
+            text-align: center;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" style="border: none; margin: 5px; padding: 5px; border-radius: 4px;">
+        <h3><b>Drop Outs</b></h3>
+        <hr>
+
+        <div class="container-fluid" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+            <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-edit"></span> Exams List</div>
+            <br>
+            <div class="container-fluid table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Drop Out Id</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Exam Id</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;User Id</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Name</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Department Id</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Batch Id</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Section</th>
+                            <th style="height: 30px; width: 800px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Action</th>
+                        </tr>
+                    </thead>
+                    @foreach (var e in Model)
+                    {
+                        <tr id="tr_@e.Drop_Out_Id">
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@e.Drop_Out_Id</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@e.Exam_Id</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@e.User_Id</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@e.User.First_Name @e.User.Last_Name</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@e.User.Department_Id</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@e.User.Batch_Id</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@e.User.Section</b></td>
+
+                            <td style="height: 40px; width: 920px; text-align: center; font-size: 13px;">
+
+                                <button type="button" id="@e.Drop_Out_Id" class="btn btn-primary">
+                                    Enroll
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    $(function(){
+
+        $("td > button").click(function () {
+            var btnid = this.id;
+            $.ajax({
+                type: "POST",
+                url: "/ExamController/Enroll",
+                data: JSON.stringify({ Drop_Out_Id : btnid }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $("#tr_" + btnid).remove();
+                },
+                error: function (response) {
+                    alert("error");
+                }
+            });
+        });
+
+    });
+</script>

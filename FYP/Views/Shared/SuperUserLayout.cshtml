@@ -1,0 +1,68 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-multiselect.js"></script>
+
+    <style>
+        .submit-btn {
+            width: 100%;
+        }
+
+        form .error {
+            color: red;
+        }
+        .multiselect-container {
+            width: 100% !important;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse navHeaderCollapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/SuperUser/Index"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/SuperUser/ManageStudent">Student</a></li>
+                            <li><a href="/SuperUser/ManageTeacher">Teacher</a></li>
+                            <li><a href="/SuperUser/ManageExamController">Exam Controller</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/SuperUser/ManageDepartment">Departments</a></li>
+                    <li><a href="/SuperUser/ManageBatch">Batches</a></li>
+                    <li><a href="/SuperUser/ManageSubject">Subjects</a></li>
+                    <li><a href="/SuperUser/ManageRoom">Rooms</a></li>
+                    <li><a href="/ExamResult/ResultForSuperUser">Exam Result</a></li>
+                    <li><a href="/SuperUser/ManageFreezeStudents">Freeze Students</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i>Welcome @Html.Raw(HttpContext.Current.Session["User_Name"])</i><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/SuperUser/Logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    @RenderBody();
+</body>
+</html
+@*@Url.Action("LogOut","Home", new {User_Id = Html.Raw(HttpContext.Current.Session["User_Id"])},null)*@

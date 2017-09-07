@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "Start_Exam";
+    Layout = "~/Views/Shared/Student_Master_page.cshtml";
+}
+
+<script type="text/javascript">
+    var hours, minutes, seconds, exam_Id, selected, question_Id;
+    $(document).ready(function () {
+        exam_Id = $("#exam_id").val();
+        $.ajax({
+            type: "POST",
+            url: "/Student/ExamTimeDuration",
+            data: { Exam_Id: exam_Id },
+            success: function (response) {
+                hours = response.Hours;
+                minutes = response.Minutes;
+                seconds = response.Seconds;
+            },
+            error: function (result) {
+                alert("error");
+            }
+        });
+         setInterval(function () {
+            if (seconds < 0)
+            {
+                $("#timer").hide();
+                window.location.href = '@Html.Raw(Url.Action("Count_Marks", "Student", new { Exam_Id = "value" }))'.replace("value", exam_Id);
+            }
+            else {
+                document.getElementById("timer").innerHTML = "Time Left : " + hours + " Hours : " + minutes + " Minutes : " + seconds + " Seconds time";      /*hou + " : " + sec;*/
+                if (seconds == 00 && minutes != 00) {
+                    minutes--;
+                    seconds = 60;
+                    if (minutes == 00 && hours != 00) {
+                        hours--;
+                        minutes = 60;
+                    }
+                }
+                seconds--;
+            }
+        }, 1000);
+    });
+    $(function () {
+        $(document).on('click', '#btn_click', function(){
+            selected = $("input:radio[name='selected_option']:checked").val();
+            question_Id = $("#question_id").val();
+            exam_Id = $("#exam_id").val();
+            $("#div1").html("");
+            $.ajax({
+                type: "Post",
+                contentType: "application/json; charset=utf-8",
+                url: "/Student/Start_Exam",
+                data: JSON.stringify({ selected_answer: selected, Exam_Id: exam_Id, Question_ID: question_Id }),
+                success: function (response) {
+                    var size_of_list = response.length;
+                    if (response != "")
+                    {
+                        var table = '<div class="container" id="div2">' +
+                            '<table class="table table-bordered">';
+                        for (var i in response)
+                        {
+                            if (size_of_list == 1)
+                            {
+                                table += '<tr>' +
+                                    '<td style="min-width: 20px; max-width:20px; overflow:hidden; text-overflow:ellipsis; text-align:center;"><b>Question:</b></td>' +
+                                    '<td style="min-width: 220px; max-width:220px; overflow:hidden; text-overflow:ellipsis;"><b>' + response[i].Questions + '</b><input type="text" value="' + response[i].Question_Id + '" id="question_id" hidden/></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="text-align:right;"><input type="radio" name="selected_option" value="True"></td>' +
+                                    '<td><b>True</b></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="text-align:right;"><input type="radio" name="selected_option" value="False"></td>' +
+                                    '<td><b>False</b></td>' +
+                                    '</tr>';
+                            }
+                            else
+                            {
+                                if (i == 0)
+                                {
+                                    table += '<tr>' +
+                                        '<td style="min-width: 20px; max-width:20px; overflow:hidden; text-overflow:ellipsis; text-align:center;"><b>Question:</b></td>' +
+                                        '<td style="min-width: 220px; max-width:220px; overflow:hidden; text-overflow:ellipsis;"><b>' + response[i].Questions + '</b><input type="text" value="' + response[i].Question_Id + '" id="question_id" hidden/></td>' +
+                                        '</tr>' +
+                                        '<tr>' +
+                                        '<td style="text-align:right;"><input type="radio" name="selected_option" value="' + response[i].Options + '"></td>' +
+                                        '<td><b>' + response[i].Options + '</b></td>' +
+                                        '</tr>';
+                                }
+                                else
+                                {
+                                    table += '<tr>' +
+                                        '<td style="text-align:right;"><input type="radio" name="selected_option" value="' + response[i].Options + '"></td>' +
+                                        '<td><b>' + response[i].Options + '</b></td>' +
+                                        '</tr>';
+                                }
+                            }
+                        }
+                        table += '<tr>' +
+                            '<td></td>' +
+                            '<td><button id="btn_click" class="btn btn-primary">Next Question</button></td>' +
+                            '</tr>';
+                        '</table >' +
+                            '</div>';
+                            $("#div1").append(table);
+                    }
+                    else {
+                        var exam_Id = $("#exam_id").val();
+                        window.location.href = '@Html.Raw(Url.Action("Count_Marks", "Student", new { Exam_Id = "value" }))'.replace("value", exam_Id);
+                    }
+
+                },
+                Error: function (result) {
+                    alert("Error");
+                }
+            });
+        });
+    });
+</script>
+
+<div class="container" style="text-align:right;">
+    <h3 id="timer"></h3>
+</div>
+<input type="text" id="exam_id" value="@ViewBag.Exam_Id" hidden />
+<div class="container" id="div1">
+    <div class="container" id="div2">
+        <table class="table table-bordered">
+            @foreach (var qtn in ViewBag.question1)
+            {
+                <tr>
+                    <td style="min-width: 20px; max-width:20px; overflow:hidden; text-overflow:ellipsis; text-align:center;">
+                        <font><b>Question:</b></font>
+                    </td>
+                    <td style="min-width: 220px; max-width:220px; overflow:hidden; text-overflow:ellipsis;">
+                        <font><b>@qtn.Questions</b></font> <input type="text" value="@qtn.Question_Id" id="question_id" hidden/>
+                    </td>
+                </tr>
+                if (qtn.Type == "MCQ-E" || qtn.Type == "MCQ-M" || qtn.Type == "MCQ-D")
+                {
+                    foreach (var option in qtn.Options)
+                    {
+                        <tr>
+                            <td style="text-align:right;">
+                                <input type="radio" value="@option.Options" name="selected_option" />
+                            </td>
+                            <td>
+                                <font><b>@option.Options</b></font>
+                            </td>
+                        </tr>
+                    }
+                }
+                else if (qtn.Type == "True/False-E" || qtn.Type == "True/False-M" || qtn.Type == "True/False-D")
+                {
+                    foreach (var option in qtn.Options)
+                    {
+                        <tr>
+                            <td style="text-align:right;">
+                                <input type="radio" value="True" name="selected_option" />
+                            </td>
+                            <td>
+                                <font><b>True</b></font>
+                            </td>
+                        </tr>
+                            <tr>
+                                <td style="text-align:right;">
+                                    <input type="radio" value="False" name="selected_option" />
+                                </td>
+                                <td>
+                                    <font><b>False</b></font>
+                                </td>
+                            </tr>
+                    }
+                }
+
+            }
+            <tr>
+                <td></td>
+                <td>
+                    <button id="btn_click" class="btn btn-primary">Next Question</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "UnFreezeStudent";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+<style>
+    .submit-btn {
+        width: 100%;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Un Freeze @Model.User_Id</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/UnFreezeStudent" method="post">
+
+                            <input type="text" id="User_Id" name="User_Id" value="@Model.User_Id" hidden /><br>
+
+                            <label>Un Freezing Date</label>
+                            <input type="datetime-local" name="UnFreezing_Date" class="form-control" /><br>
+
+                            <label>Batch</label>
+                            <select name="Batch_Id" id="Batch_Id" class="form-control"></select><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Unfreeze" />
+                        </form>
+
+                    </div>
+                </div>
+                <center><a href="/SuperUser/ManageStudent">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "/SuperUser/AjaxMethodForBatchInFreeze",
+                data: JSON.stringify({ User_Id: $("#User_Id").val() }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $("#Batch_Id").html('<option disabled selected>--Select a Batch--</option>');
+                    for (var i in response) {
+                        $("#Batch_Id").append(new Option(response[i].Batch_Id, response[i].Batch_Id));
+                    }
+                },
+                error: function (response) {
+                    $("#Batch_Id").html('<option disabled selected>--There are no batches in DB--</option>');
+                }
+            });
+        });
+
+                $("form").validate({
+                    rules: {
+                        UnFreezing_Date: "required",
+                        Batch_Id: "required",
+                    },
+                    messages: {
+                        UnFreezing_Date: "Please select a freezing date !",
+                        Batch_Id: "required",
+                    },
+                    submit: function (form) {
+                        form.submit();
+                    }
+                });
+
+        });
+
+</script>

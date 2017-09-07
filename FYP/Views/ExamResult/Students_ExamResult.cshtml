@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Teacher_ExamResult";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
+}
+<div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+    <h3><b>Exam Result</b></h3>
+    <hr>
+    <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+        <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-filter"></span>Exam Result</div>
+        <br>
+        <div class="container">
+            <table class="table table-bordered table-striped" style="table-layout:fixed">
+                <tr>
+                    <th style="text-align:center;">Student ID</th>
+                    <th style="text-align:center;">First Name</th>
+                    <th style="text-align:center;">Last Name</th>
+                    <th style="text-align:center;">Department</th>
+                    <th style="text-align:center;">Batch</th>
+                    <th style="text-align:center;">Subject</th>
+                    <th style="text-align:center;">Mid Marks</th>
+                    <th style="text-align:center;">Final Marks</th>
+                    <th style="text-align:center;">Exam Session</th>
+                    <th style="text-align:center;">Gpa</th>
+                </tr>
+                @foreach (var i in Model)
+                {
+                <tr>
+                    <td style="text-align:center;">@i.User_Id</td>
+                    <td style="text-align:center;">@i.User.First_Name</td>
+                    <td style="text-align:center;">@i.User.Last_Name</td>
+                    <td style="text-align:center;">@i.Exam.Department_Id</td>
+                    <td style="text-align:center;">@i.Exam.Batch_Id</td>
+                    <td style="text-align:center;">@i.Exam.Subject.Subject_Name</td>
+                    <td style="text-align:center;">@i.Mid_Marks</td>
+                    <td style="text-align:center;">@i.Final_Marks</td>
+                    <td style="text-align:center;">@i.Exam.Exam_Session</td>
+                    <td style="text-align:center;"></td>
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

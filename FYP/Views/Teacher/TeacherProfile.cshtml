@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "TeacherProfile";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
+}
+<style>
+    #displaypicture {
+        margin-top:30px;
+        object-fit: cover;
+        width: 270px;
+        height: 270px;
+    }
+</style>
+
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4" style="text-align:left;">
+            <img id="displaypicture" class="img-rounded thumbnail" src="@Url.Content(ViewBag.imageURL)" />
+            <button type="button" class="btn btn-primary" style="text-align:center; width:270px; height:40px;" onclick="location.href='@Url.Action("EditProfile", "Teacher")'"><span class="glyphicon glyphicon-edit"></span> Edit Profile </button>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <label>User Id:</label>
+            <input type="text" class="form-control" value="@Model.User_Id" readonly /><br>
+            <label>First Name:</label>
+            <input type="text" class="form-control" value="@Model.First_Name" readonly /><br>
+            <label>Last Name:</label>
+            <input type="text" class="form-control" value="@Model.Last_Name" readonly /><br>
+            <label>Contact Number:</label>
+            <input type="text" class="form-control" value="@Model.Contact_No" readonly /><br>
+            <label>Gender:</label>
+            <input type="text" class="form-control" value="@Model.Gender" readonly /><br>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

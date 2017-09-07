@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "ExamSchedule";
+    Layout = "~/Views/Shared/ExamControllerLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+ 
+    <title>CreateExam</title>
+
+    <style>
+        .submit-btn {
+            width: 100%;
+        }
+
+        .multiselect-container {
+            width: 100% !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Create Exam Schedule</b></center></div>
+                    <div class="panel-body">
+                    
+                        <form action="AddExamSchedule" method="post">
+                            <input type="text" name ="Schedule_Id" value="@Model.Schedule_Id" hidden/>
+
+                            <label>Exam Id</label>
+                            <input type="text" name ="Exam_Id" value="@Model.Exam_Id" class="form-control" readonly/>
+
+                            <label>Time From</label>
+                            @if (Model.Time_From != null)
+                            {
+                                <input type="datetime-local" id="Time_From" name="Time_From" value="@Model.Time_From.ToString("yyyy-MM-ddThh:mm:ss")" class="form-control" />
+                            }
+                            else
+                            {
+                                <input type="datetime-local" id="Time_From" name="Time_From" class="form-control" />
+                            }
+
+                            <label>Time To</label>
+                            @if (Model.Time_To != null)
+                            {
+                                <input type="datetime-local" id="Time_To" name="Time_To" value="@Model.Time_To.ToString("yyyy-MM-ddThh:mm:ss")" class="form-control" />
+                            }
+                            else
+                            {
+                                <input type="datetime-local" id="Time_To" name="Time_To" class="form-control" />
+                            }
+
+                            <label>Room</label>
+                            <select id="room" name="rooms" class="form-control" multiple>
+                                @foreach (var r in ViewBag.rooms)
+                                {
+                                    if (!string.IsNullOrEmpty(r))
+                                    {
+                                        <option value="@r" selected>Room Number: @r</option>
+                                    }
+                                }
+                            </select><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Add" />
+                        </form>
+
+                    </div>
+                </div>
+                <center><a href="/ExamController/Index">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+
+        //$("#Time_From, #Time_To").datetimepicker();
+
+        $(document).ready(function () {
+
+            $("#room").multiselect({
+                includeSelectAllOption: true,
+                buttonWidth: '100%'
+            });
+            $(".caret").css('float', 'right');
+            $(".caret").css('margin', '8px 0');
+
+            $.ajax({
+                type: "POST",
+                url: "/ExamController/AjaxMethodForRoom",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    len = response.length;
+                    if (len == 0) {
+                        $("#room").html('<option disabled selected>-There are no Rooms in DB-</option>');
+                    }
+                    else {
+                        for (var i = 0; i < len; i++) {
+                            if ($("#room option[value='" + response[i].Room_Id + "']").length > 0) { }
+                            else {
+                                $("#room").append(new Option("Room Number: " + response[i].Room_Id, response[i].Room_Id));
+                            }
+                        }
+                        $("#room").multiselect("rebuild");
+                    }
+                },
+                error: function (response) {
+                }
+            });
+
+        });
+
+
+        //$("form").validate({
+
+        //    rules: {
+
+        //        Subject_Id: {
+        //            required: true,
+        //            remote: {
+        //                url: "/SuperUser/IsSubject_IdAvailable",
+        //                type: "post",
+        //                data: {
+        //                    function() { return $("#Subject_Id").val(); },
+        //                },
+        //            },
+        //        },
+
+        //        Subject_Name: "required",
+        //        User_Id: "required",
+        //        Batch_Id: "required",
+        //        Section: "required",
+        //    },
+
+        //    messages: {
+
+        //        Subject_Id: {
+        //            required: "Please enter subject id !",
+        //            remote: "Subject id already exists !"
+        //        },
+
+        //        Subject_Name: "Please enter subject name !",
+        //        User_Id: "Please select a teacher !",
+        //        Batch_Id: "Please select a batch !",
+        //        Section: "Please select minimum one section !",
+        //    },
+        //    submit: function (form) {
+        //        form.submit();
+        //    }
+        //});
+
+
+    });
+</script>
+  

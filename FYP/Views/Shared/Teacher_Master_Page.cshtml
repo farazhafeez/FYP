@@ -1,0 +1,67 @@
+﻿
+
+<script src="~/jquery-3.2.1.js"></script>
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+
+<html>
+<head>
+    <style>
+        li:hover{
+            color:gray;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse navHeaderCollapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Teacher/Index"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                    <li><a href="/Teacher/Subjects"><span class="glyphicon glyphicon-cog"></span>Subjects</a></li>
+                    <li><a href="/PaperCreation/Exam_Status"><span class="glyphicon glyphicon-edit"></span>Create Paper</a></li>
+                    <li><a href="/ExamResult/Students_ExamResult">Exam Result</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <font>
+                            @{
+                                var user = (string)Session["User_Id"];
+                                string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".jpg"));
+                                string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".png"));
+                                if (System.IO.File.Exists(imageurlforJPG))
+                                {
+                                    <img class="img-circle" src="@Url.Content("~/Content/Images/Pictures/"+System.IO.Path.GetFileName(user)+System.IO.Path.GetExtension(".jpg"))" style="width:25px; height:25px; object-fit:cover;" />
+                                }
+                                else if (System.IO.File.Exists(imageurlforPNG))
+                                {
+                                    <img class="img-circle" src="@Url.Content("~/Content/Images/Pictures/"+System.IO.Path.GetFileName(user)+System.IO.Path.GetExtension(".jpg"))" style="width:25px; height:25px; object-fit:cover;" />
+                                }
+                                else
+                                {
+                                    <img class="img-circle" src="@Url.Content("~/Content/Images/Pictures/"+System.IO.Path.GetFileName("PlaceHolder")+System.IO.Path.GetExtension(".jpg"))" style="width:25px; height:25px; object-fit:cover;" />
+                                }
+                            }
+                                Signed in as <b>@Html.Raw(HttpContext.Current.Session["User_Id"])</b></font><span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Teacher/TeacherProfile">My Profile</a></li>
+                            <li><a href="/Teacher/Logout" style="color:dimgrey;"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    @RenderBody()
+</body>
+</html>

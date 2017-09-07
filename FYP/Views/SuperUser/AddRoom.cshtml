@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "AddRoom";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+<style>
+    .submit-btn {
+        width: 100%;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Add a room</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/AddRoom" method="post">
+
+                            <label>Room Id</label>
+                            <input type="text" name="Room_Id" id="Room_Id" class="form-control" placeholder="Example: 1a" /><br>
+
+                            <label>Room Capacity</label>
+                            <input type="text" name="Room_Capacity" class="form-control" placeholder="Example: 40" /><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Add">
+                        </form>
+                    </div>
+                </div>
+                <center><a href="/SuperUser/ManageRoom">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+
+        $("form").validate({
+            rules: {
+                Room_Capacity: {
+                    required: true,
+                    number: true,
+                },
+                Room_Id: {
+                    required: true,
+                    remote: {
+                        url: "/SuperUser/IsRoom_IdAvailable",
+                        type: "post",
+                        data: {
+                            function() { return $("#Room_Id").val(); },
+                        },
+                    },
+                },
+            },
+            messages: {
+                Room_Capacity: {
+                    required: "Please enter room capacity!",
+                    number: "It must be a number!",
+                },
+                Room_Id: {
+                    required: "Please enter room id!",
+                    remote: "Room id already exists!",
+                },
+            },
+            submit: function (form) {
+                form.submit();
+            }
+        });
+    });
+</script>

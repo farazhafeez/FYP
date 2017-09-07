@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Exam_Status";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+
+<script>
+    function load() {
+        $(function () {
+            $.ajax({
+                type: "Post",
+                url: "/Teacher/Exam_Status",
+                success: function (response) {
+                    for (var i in response)
+                    {
+                        if (response[i].Status == "Enable")
+                        {
+                            $("#subject_" + response[i].Subject_Id).show();
+                        }
+                        else
+                        {
+                            $("#subject_" + response[i].Subject_Id).hide();
+                        }
+                    }
+                },
+                error: function (result) {
+                    alert("error accur");
+                }
+            });
+        });
+    }
+    $(document).ready(function () {
+        load();
+    });
+    setInterval(load, 1000);
+</script>
+
+<div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+    <h3><b>Create Paper</b></h3>
+    <hr>
+    <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+        <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-edit"></span>Create Exam</div>
+        <br>
+        <div class="container" id="div1">
+            <table class="table table-bordered" style="table-layout:fixed">
+                <tr>
+                    <th style="text-align:center;"><b>Subjects</b></th>
+                    <th style="text-align:center;"><b>Action</b></th>
+                </tr>
+                @foreach(var s in ViewBag.total_subjects)
+                {
+                    <tr id="subject_@s.Subject_Id" style="display:none;">
+                        <td style="text-align:center;"><div>@s.Subject_Name</div></td>
+                        <td style="text-align:center;">
+                            <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create_Criteria", "Teacher", new { id=@s.Subject_Id})'"><span class="glyphicon glyphicon-edit"></span>Create Exam</button></div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+    </div>
+</div>
+

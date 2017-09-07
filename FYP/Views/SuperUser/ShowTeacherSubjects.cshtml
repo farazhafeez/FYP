@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "ShowTeacherSubjects";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+
+<style>
+    hr {
+        border: 1px solid #3CCAE6;
+    }
+
+    a.my_class {
+        color: white;
+    }
+</style>
+<body>
+    <div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+        <h3><b>@ViewBag.user Subjects</b></h3>
+        <hr>
+        <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+            <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-edit"></span> Subjects List</div>
+            <br>
+
+            <div class="container">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Subject Id</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Subject Name</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Section</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Batch Id</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Teacher Id</th>
+                            <th style="height: 30px; width: 600px; text-align: center; font-size: 15px;">&nbsp;&nbsp;Teacher Name</th>
+                        </tr>
+                    </thead>
+                    @foreach (var s in Model)
+                    {
+                        <tr>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@s.Subject_Id</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@s.Subject_Name</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@s.Section</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@s.Batch_Id</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@s.User_Id</b></td>
+                            <td style="height: 40px; width: 600px; text-align: center; font-size: 13px;">&nbsp;&nbsp;<b>@s.User.First_Name @s.User.Last_Name</b></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>

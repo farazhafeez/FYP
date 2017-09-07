@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Exam_Status";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
+}
+
+<div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+    <h3><b>Create Paper</b></h3>
+    <hr>
+    @if (ViewBag.Success_Message != null)
+    {
+        <div class="alert alert-danger alert-dismissable fade in" style="text-align:center;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @ViewBag.Success_Message
+        </div>
+    }
+
+    <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+        <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-edit"></span>Create Exam</div>
+        <br>
+        <div class="container" id="div1">
+            <table class="table table-bordered" style="table-layout:fixed">
+                <tr>
+                    <th style="text-align:center;"><b>Subjects</b></th>
+                    <th style="text-align:center;"><b>Action</b></th>
+                </tr>
+                @foreach (var s in ViewBag.total_subjects)
+                {
+                    <tr>
+                        <td style="text-align:center;"><div>@s.Subject_Name</div></td>
+                        <td style="text-align:center;">
+                            <div><button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create_Criteria", "PaperCreation", new { Subject_Id = @s.Subject_Id})'"><span class="glyphicon glyphicon-edit"></span>Create Paper</button></div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+    </div>
+</div>
+

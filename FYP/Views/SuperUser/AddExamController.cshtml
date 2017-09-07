@@ -1,0 +1,132 @@
+﻿@model FYP.Models.User
+@{
+    ViewBag.Title = "AddExamController";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+
+<style>
+    .submit-btn {
+        width:100%;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <center><a href="/SuperUser/ManageExamController"><b>Go Back</b></a></center><br>
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Create An Account For Exam Controller</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/AddExamController" method="post">
+
+                            <label>Id</label>
+                            <input type="text" name="User_Id" id="User_Id" class="form-control" placeholder="Example: john.smith@gmail.com" /><br>
+
+                            <label>First Name</label>
+                            <input type="text" name="First_Name" class="form-control" placeholder="Example: john" /><br>
+
+                            <label>Last Name</label>
+                            <input type="text" name="Last_Name" class="form-control" placeholder="Example: smith" /><br>
+
+                            <label>Password</label>
+                            <input type="password" name="Password" id="Password" class="form-control" /><br>
+
+                            <label>Confirm Password</label>
+                            <input type="password" name="CPassword" class="form-control" /><br>
+
+                            <label>Contact Number</label>
+                            <input type="text" name="Contact_No" class="form-control" placeholder="Example: 03001234567"><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Register">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+
+        jQuery.validator.addMethod("pwcheck",
+            function (value, element, param) {
+                if (this.optional(element)) {
+                    return true;
+                } else if (!/[a-z]/.test(value)) {
+                    return false;
+                } else if (!/[0-9]/.test(value)) {
+                    return false;
+                }
+                else if (!/[a-z0-9]{8,}/.test(value)) {
+                    return false;
+                }
+
+                return true;
+            });
+
+        $("form").validate({
+            rules: {
+                First_Name: "required",
+                Last_Name: "required",
+                Password: {
+                    required: true,
+                    pwcheck: true,
+                },
+                CPassword: {
+                    required: true,
+                    equalTo: "#Password",
+                },
+                Contact_No: {
+                    required: true,
+                    number: true,
+                    minlength: 11,
+                    maxlength: 11,
+                },
+                User_Id: {
+                    required: true,
+                    remote: {
+                        url: "/SuperUser/IsUser_IdAvailable",
+                        type: "post",
+                        data: {
+                            function () { return $("#User_Id").val(); },
+                        },
+                    },
+                },
+            },
+            messages: {
+                First_Name: "Please enter First Name !",
+                Last_Name: "Please enter Last Name !",
+                Password: {
+                    required: "Please enter password!",
+                    pwcheck: "Password must contain eight characters minimum, at least one letter and one number!",
+                },
+                CPassword: {
+                    required: "Please enter password!",
+                    equalTo: "Password doesn't match!",
+                },
+                Contact_No: {
+                    required: "Please enter a Contact Number !",
+                    number: "It must be a number !",
+                    minlength: "There must be 11 digits in contact no. !",
+                    maxlength: "There must be 11 digits in contact no. !",
+                },
+                User_Id: {
+                    required: "Please enter User id !",
+                    remote: "User id already exists !"
+                },
+
+            },
+            submit: function (form) {
+                form.submit();
+            }
+        });
+
+
+    });
+</script>

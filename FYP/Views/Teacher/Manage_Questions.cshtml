@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Manage_Questions";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+<style>
+    hr {
+        border: 1px solid #3CCAE6;
+    }
+
+    a.my_class {
+        color: white;
+    }
+</style>
+<body>
+    <div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+        <h3><b>Manage Subjects</b></h3>
+        <hr>
+        <div style="border-radius: 4px;">
+        <table class="table table-striped table-bordered" >
+            <tr>
+                <th style="height: 30px; width: 100px; text-align: center; font-size: 20px;">
+                    <label><b>Teacher Name:</b></label>
+                </th>
+                <td style="height: 30px; width: 500px; text-align: center; font-size: 18px;">
+                    <label><b>@Html.Raw(HttpContext.Current.Session["User_Name"])</b></label>
+                </td>
+            </tr>
+            <tr>
+                <th style="height: 30px; width: 200px; text-align: center; font-size: 20px;">
+                    <label><b>Subject Name:</b></label>
+                </th>
+                <td style="height: 30px; width: 400px; text-align: center; font-size: 18px;">
+                    <label><b>@ViewBag.subject</b></label>
+                </td>
+            </tr>
+        </table>
+        </div>
+        <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+            <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-edit"></span>Subjects Name</div>
+            <br>
+            <div class="container">
+            <table class="table table-bordered">
+                <tr>
+                    <th style ="height: 30px; width: 500px; font-size: 14px;">
+                        <label><b>Questions List</b></label>
+                    </th>
+                </tr>
+                @foreach(var s in Model)
+                    {
+                        <tr>
+                            <td style="height: 30px; width: 200px; text-align: center; font-size: 15px;">
+                                @s.Questions
+                            </td>
+                        </tr>
+                    }
+            </table>
+            </div>
+        </div>
+    </div>
+</body>

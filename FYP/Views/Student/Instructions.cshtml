@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Instructions";
+    Layout = "~/Views/Shared/Student_Master_page.cshtml";
+}
+
+<style>
+    font{
+        font-size:18px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        var hours, minutes, seconds, exam_Id;
+        exam_Id = $("#exam_id").val();
+        $.ajax({
+            type: "POST",
+            url: "/Student/ExamTimeDuration",
+            data: { Exam_Id: exam_Id },
+            success: function (response) {
+                hours = response.Hours;
+                minutes = response.Minutes;
+                seconds = response.Seconds;
+            },
+            error: function (result) {
+                alert("error");
+            }
+        });
+         setInterval(function () {
+            if (seconds < 0)
+            {
+                $("#timer").hide();
+                window.location.href = '@Html.Raw(Url.Action("Count_Marks", "Student", new { Exam_Id = "value" }))'.replace("value", exam_Id);
+            }
+            else {
+                document.getElementById("timer").innerHTML = "Time Left : " + hours + " Hours : " + minutes + " Minutes : " + seconds + " Seconds time";      /*hou + " : " + sec;*/
+                if (seconds == 00 && minutes != 00) {
+                    minutes--;
+                    seconds = 60;
+                    if (minutes == 00 && hours != 00) {
+                        hours--;
+                        minutes = 60;
+                    }
+                }
+                seconds--;
+            }
+        }, 1000);
+    });
+</script>
+<div class="container" style="text-align:right;">
+    <h3 id="timer"></h3>
+</div>
+<div class="container" style="border: none; padding: 0px; border-radius: 4px;"> 
+    <hr>
+    <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+        <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-info-sign"></span>Instructions</div>
+        <br>
+        <div class="container-fluid" style=" overflow:hidden; text-overflow:ellipsis;">
+            <ul>
+                <li>
+                    <font>Students must complete the @ViewBag.questions questions exam within the @ViewBag.timeduration time frame allotted for the exam.</font>
+                </li>
+                <li>
+                    <font>You are not allowed to communicate by word of mouth or otherwise with other candidates (this includes the time when answer scripts are being collected).</font>
+                </li>
+                <li>
+                    <font>Please raise your hand if you wish to communicate with an invigilator.</font>
+                </li>
+                <li>
+                    <font>Unless granted permission by an invigilator, you are not allowed to leave your seat.</font>
+                </li>
+                <li>
+                    <font>
+                        Once you have entered the examination hall, you will not be allowed to leave the hall until one hour
+                        after the examination has commenced.
+                    </font>
+                </li>
+                <li>
+                    <font>
+                        If, for any reason, you are given permission to leave the hall temporarily, you must be accompanied by an invigilator throughout your absence from the examination hall. You are required to leave
+                        your handphone on your desk when you leave the hall temporarily.
+                    </font>
+                </li>
+                <li>
+                    <font>
+                        Do not write on, mark, highlight or deface any reference materials provided for the examination. If found doing so, the reference materials will be removed from your use for the rest of the examination and you will be made to pay for the cost of the materials that have to be replaced.
+                    </font>
+                </li>
+                <li>
+                    <font>Once dismissed, you should leave the examination hall quickly and quietly. Remember to take your personal belongings with you. </font>
+                </li>
+                <li>
+                    <font>
+                        Bags etc must be placed according to the supervisor's instructions.
+                    </font>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <input type="text" value="@ViewBag.Exam_Id" id="exam_id" hidden/>
+                    <button type="button" style="width:150px; height:45px;" class="btn btn-primary" onclick="location.href = '@Url.Action("Start_Exam", "Student",new { Exam_Id = ViewBag.Exam_Id})'"><span class="glyphicon glyphicon-forward"></span>Start Exam</button>
+                </div>
+            </div>
+            <br>
+        </div>
+        </div>
+</div>

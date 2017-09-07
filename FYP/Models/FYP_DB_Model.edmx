@@ -1,0 +1,1180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FYP_DB_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="Batch_Id" />
+          </Key>
+          <Property Name="Batch_Id" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Starting_Year" Type="nvarchar" MaxLength="255" />
+          <Property Name="Ending_Year" Type="nvarchar" MaxLength="255" />
+          <Property Name="Department_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Department_Id" />
+          </Key>
+          <Property Name="Department_Id" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Drop_Out">
+          <Key>
+            <PropertyRef Name="Drop_Out_Id" />
+          </Key>
+          <Property Name="Drop_Out_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exam_Id" Type="int" />
+          <Property Name="User_Id" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Enrolled">
+          <Key>
+            <PropertyRef Name="Enrolled_Id" />
+          </Key>
+          <Property Name="Enrolled_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exam_Id" Type="int" />
+          <Property Name="User_Id" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Exam_Id" />
+          </Key>
+          <Property Name="Exam_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Total_Marks" Type="int" />
+          <Property Name="Subject_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Batch_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Department_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Exam_Session" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Freeze">
+          <Key>
+            <PropertyRef Name="Student_Id" />
+          </Key>
+          <Property Name="Student_Id" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Freezing_Date" Type="datetime2" Precision="0" />
+          <Property Name="Unfreezing_Date" Type="datetime2" Precision="0" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Options">
+          <Key>
+            <PropertyRef Name="Option_Id" />
+          </Key>
+          <Property Name="Option_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Options" Type="nvarchar" MaxLength="255" />
+          <Property Name="Correct_Answer" Type="nvarchar" MaxLength="255" />
+          <Property Name="Question_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Paper">
+          <Key>
+            <PropertyRef Name="Paper_Id" />
+          </Key>
+          <Property Name="Paper_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question_Id" Type="int" />
+          <Property Name="Question_Marks" Type="int" />
+          <Property Name="Exam_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Question_Id" />
+          </Key>
+          <Property Name="Question_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Questions" Type="nvarchar" MaxLength="255" />
+          <Property Name="Subject_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="Result_Id" />
+          </Key>
+          <Property Name="Result_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Exam_Id" Type="int" />
+          <Property Name="Mid_Marks" Type="int" />
+          <Property Name="Final_Marks" Type="int" />
+          <Property Name="Date_Published" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Room_Id" />
+          </Key>
+          <Property Name="Room_Id" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Room_Capacity" Type="int" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Schedule_Id" />
+          </Key>
+          <Property Name="Schedule_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Exam_Id" Type="int" />
+          <Property Name="Time_From" Type="datetime2" Precision="0" />
+          <Property Name="Time_To" Type="datetime2" Precision="0" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Subject_Id" />
+          </Key>
+          <Property Name="Subject_Id" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Subject_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="User_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Batch_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Section" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="First_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Last_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Role" Type="nvarchar" MaxLength="255" />
+          <Property Name="Contact_No" Type="nvarchar" MaxLength="255" />
+          <Property Name="Batch_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Department_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Section" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="255" />
+          <Property Name="User_Image" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="Batch$DepartmentBatch">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Batch" Type="Self.Batch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_Id" />
+            </Principal>
+            <Dependent Role="Batch">
+              <PropertyRef Name="Department_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Drop_Out$ExamDrop_Out">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Drop_Out" Type="Self.Drop_Out" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Drop_Out">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Drop_Out$UserDrop_Out">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Drop_Out" Type="Self.Drop_Out" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Drop_Out">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Enrolled$ExamEnrolled">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Enrolled" Type="Self.Enrolled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Enrolled">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Enrolled$UserEnrolled">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Enrolled" Type="Self.Enrolled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Enrolled">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Exam$BatchExam">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="Batch_Id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Batch_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Exam$DepartmentExam">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_Id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Department_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Exam$SubjectExam">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Options$QuestionOptions">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Options" Type="Self.Options" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Options">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Paper$ExamPaper">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Paper" Type="Self.Paper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Paper">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Paper$QuestionPaper">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Paper" Type="Self.Paper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Paper">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Question$SubjectQuestion">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Result$ExamResult">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Result$UserResult">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Schedule$ExamSchedule">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Schedule$RoomSchedule">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="Room_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Subject$BatchSubject">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="0..1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="Batch_Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="Batch_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Subject$UserSubject">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User$DepartmentUser">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Department_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User$SemesterUser">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="Batch_Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Batch_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FYP_DB_ModelStoreContainer">
+          <EntitySet Name="Batch" EntityType="Self.Batch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drop_Out" EntityType="Self.Drop_Out" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enrolled" EntityType="Self.Enrolled" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Freeze" EntityType="Self.Freeze" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paper" EntityType="Self.Paper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Result" EntityType="Self.Result" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Batch$DepartmentBatch" Association="Self.Batch$DepartmentBatch">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Batch" EntitySet="Batch" />
+          </AssociationSet>
+          <AssociationSet Name="Drop_Out$ExamDrop_Out" Association="Self.Drop_Out$ExamDrop_Out">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="Drop_Out" EntitySet="Drop_Out" />
+          </AssociationSet>
+          <AssociationSet Name="Drop_Out$UserDrop_Out" Association="Self.Drop_Out$UserDrop_Out">
+            <End Role="User" EntitySet="User" />
+            <End Role="Drop_Out" EntitySet="Drop_Out" />
+          </AssociationSet>
+          <AssociationSet Name="Enrolled$ExamEnrolled" Association="Self.Enrolled$ExamEnrolled">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="Enrolled" EntitySet="Enrolled" />
+          </AssociationSet>
+          <AssociationSet Name="Enrolled$UserEnrolled" Association="Self.Enrolled$UserEnrolled">
+            <End Role="User" EntitySet="User" />
+            <End Role="Enrolled" EntitySet="Enrolled" />
+          </AssociationSet>
+          <AssociationSet Name="Exam$BatchExam" Association="Self.Exam$BatchExam">
+            <End Role="Batch" EntitySet="Batch" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="Exam$DepartmentExam" Association="Self.Exam$DepartmentExam">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="Exam$SubjectExam" Association="Self.Exam$SubjectExam">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="Options$QuestionOptions" Association="Self.Options$QuestionOptions">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Options" EntitySet="Options" />
+          </AssociationSet>
+          <AssociationSet Name="Paper$ExamPaper" Association="Self.Paper$ExamPaper">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="Paper" EntitySet="Paper" />
+          </AssociationSet>
+          <AssociationSet Name="Paper$QuestionPaper" Association="Self.Paper$QuestionPaper">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Paper" EntitySet="Paper" />
+          </AssociationSet>
+          <AssociationSet Name="Question$SubjectQuestion" Association="Self.Question$SubjectQuestion">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="Result$ExamResult" Association="Self.Result$ExamResult">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="Result$UserResult" Association="Self.Result$UserResult">
+            <End Role="User" EntitySet="User" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="Schedule$ExamSchedule" Association="Self.Schedule$ExamSchedule">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="Schedule$RoomSchedule" Association="Self.Schedule$RoomSchedule">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="Subject$BatchSubject" Association="Self.Subject$BatchSubject">
+            <End Role="Batch" EntitySet="Batch" />
+            <End Role="Subject" EntitySet="Subject" />
+          </AssociationSet>
+          <AssociationSet Name="Subject$UserSubject" Association="Self.Subject$UserSubject">
+            <End Role="User" EntitySet="User" />
+            <End Role="Subject" EntitySet="Subject" />
+          </AssociationSet>
+          <AssociationSet Name="User$DepartmentUser" Association="Self.User$DepartmentUser">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="User$SemesterUser" Association="Self.User$SemesterUser">
+            <End Role="Batch" EntitySet="Batch" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FYP_DB_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="Batch_Id" />
+          </Key>
+          <Property Name="Batch_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Starting_Year" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Ending_Year" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Department_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Department" Relationship="Self.Batch_DepartmentBatch" FromRole="Batch" ToRole="Department" />
+          <NavigationProperty Name="Exams" Relationship="Self.Exam_BatchExam" FromRole="Batch" ToRole="Exam" />
+          <NavigationProperty Name="Subjects" Relationship="Self.Subject_BatchSubject" FromRole="Batch" ToRole="Subject" />
+          <NavigationProperty Name="Users" Relationship="Self.User_SemesterUser" FromRole="Batch" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Department_Id" />
+          </Key>
+          <Property Name="Department_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Batches" Relationship="Self.Batch_DepartmentBatch" FromRole="Department" ToRole="Batch" />
+          <NavigationProperty Name="Exams" Relationship="Self.Exam_DepartmentExam" FromRole="Department" ToRole="Exam" />
+          <NavigationProperty Name="Users" Relationship="Self.User_DepartmentUser" FromRole="Department" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Drop_Out">
+          <Key>
+            <PropertyRef Name="Drop_Out_Id" />
+          </Key>
+          <Property Name="Drop_Out_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exam_Id" Type="Int32" />
+          <Property Name="User_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Exam" Relationship="Self.Drop_Out_ExamDrop_Out" FromRole="Drop_Out" ToRole="Exam" />
+          <NavigationProperty Name="User" Relationship="Self.Drop_Out_UserDrop_Out" FromRole="Drop_Out" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Enrolled">
+          <Key>
+            <PropertyRef Name="Enrolled_Id" />
+          </Key>
+          <Property Name="Enrolled_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exam_Id" Type="Int32" />
+          <Property Name="User_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Exam" Relationship="Self.Enrolled_ExamEnrolled" FromRole="Enrolled" ToRole="Exam" />
+          <NavigationProperty Name="User" Relationship="Self.Enrolled_UserEnrolled" FromRole="Enrolled" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Exam_Id" />
+          </Key>
+          <Property Name="Exam_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Total_Marks" Type="Int32" />
+          <Property Name="Subject_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Batch_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Department_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Exam_Session" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Batch" Relationship="Self.Exam_BatchExam" FromRole="Exam" ToRole="Batch" />
+          <NavigationProperty Name="Department" Relationship="Self.Exam_DepartmentExam" FromRole="Exam" ToRole="Department" />
+          <NavigationProperty Name="Drop_Out" Relationship="Self.Drop_Out_ExamDrop_Out" FromRole="Exam" ToRole="Drop_Out" />
+          <NavigationProperty Name="Enrolleds" Relationship="Self.Enrolled_ExamEnrolled" FromRole="Exam" ToRole="Enrolled" />
+          <NavigationProperty Name="Subject" Relationship="Self.Exam_SubjectExam" FromRole="Exam" ToRole="Subject" />
+          <NavigationProperty Name="Papers" Relationship="Self.Paper_ExamPaper" FromRole="Exam" ToRole="Paper" />
+          <NavigationProperty Name="Results" Relationship="Self.Result_ExamResult" FromRole="Exam" ToRole="Result" />
+          <NavigationProperty Name="Schedules" Relationship="Self.Schedule_ExamSchedule" FromRole="Exam" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Freeze">
+          <Key>
+            <PropertyRef Name="Student_Id" />
+          </Key>
+          <Property Name="Student_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Freezing_Date" Type="DateTime" Precision="0" />
+          <Property Name="Unfreezing_Date" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Option">
+          <Key>
+            <PropertyRef Name="Option_Id" />
+          </Key>
+          <Property Name="Option_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Options" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Correct_Answer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Question_Id" Type="Int32" />
+          <NavigationProperty Name="Question" Relationship="Self.Options_QuestionOptions" FromRole="Options" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Paper">
+          <Key>
+            <PropertyRef Name="Paper_Id" />
+          </Key>
+          <Property Name="Paper_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question_Id" Type="Int32" />
+          <Property Name="Question_Marks" Type="Int32" />
+          <Property Name="Exam_Id" Type="Int32" />
+          <NavigationProperty Name="Exam" Relationship="Self.Paper_ExamPaper" FromRole="Paper" ToRole="Exam" />
+          <NavigationProperty Name="Question" Relationship="Self.Paper_QuestionPaper" FromRole="Paper" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Question_Id" />
+          </Key>
+          <Property Name="Question_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Questions" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Subject_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Options" Relationship="Self.Options_QuestionOptions" FromRole="Question" ToRole="Options" />
+          <NavigationProperty Name="Papers" Relationship="Self.Paper_QuestionPaper" FromRole="Question" ToRole="Paper" />
+          <NavigationProperty Name="Subject" Relationship="Self.Question_SubjectQuestion" FromRole="Question" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="Result_Id" />
+          </Key>
+          <Property Name="Result_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Exam_Id" Type="Int32" />
+          <Property Name="Mid_Marks" Type="Int32" />
+          <Property Name="Final_Marks" Type="Int32" />
+          <Property Name="Date_Published" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Exam" Relationship="Self.Result_ExamResult" FromRole="Result" ToRole="Exam" />
+          <NavigationProperty Name="User" Relationship="Self.Result_UserResult" FromRole="Result" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Room_Id" />
+          </Key>
+          <Property Name="Room_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Room_Capacity" Type="Int32" />
+          <NavigationProperty Name="Schedules" Relationship="Self.Schedule_RoomSchedule" FromRole="Room" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Schedule_Id" />
+          </Key>
+          <Property Name="Schedule_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Exam_Id" Type="Int32" />
+          <Property Name="Time_From" Type="DateTime" Precision="0" />
+          <Property Name="Time_To" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Exam" Relationship="Self.Schedule_ExamSchedule" FromRole="Schedule" ToRole="Exam" />
+          <NavigationProperty Name="Room" Relationship="Self.Schedule_RoomSchedule" FromRole="Schedule" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Subject_Id" />
+          </Key>
+          <Property Name="Subject_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Subject_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Batch_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Section" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Batch" Relationship="Self.Subject_BatchSubject" FromRole="Subject" ToRole="Batch" />
+          <NavigationProperty Name="Exams" Relationship="Self.Exam_SubjectExam" FromRole="Subject" ToRole="Exam" />
+          <NavigationProperty Name="Questions" Relationship="Self.Question_SubjectQuestion" FromRole="Subject" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.Subject_UserSubject" FromRole="Subject" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="First_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Last_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_No" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Batch_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Department_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Section" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="User_Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Batch" Relationship="Self.User_SemesterUser" FromRole="User" ToRole="Batch" />
+          <NavigationProperty Name="Department" Relationship="Self.User_DepartmentUser" FromRole="User" ToRole="Department" />
+          <NavigationProperty Name="Drop_Out" Relationship="Self.Drop_Out_UserDrop_Out" FromRole="User" ToRole="Drop_Out" />
+          <NavigationProperty Name="Enrolleds" Relationship="Self.Enrolled_UserEnrolled" FromRole="User" ToRole="Enrolled" />
+          <NavigationProperty Name="Results" Relationship="Self.Result_UserResult" FromRole="User" ToRole="Result" />
+          <NavigationProperty Name="Subjects" Relationship="Self.Subject_UserSubject" FromRole="User" ToRole="Subject" />
+        </EntityType>
+        <Association Name="Batch_DepartmentBatch">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Batch" Type="Self.Batch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_Id" />
+            </Principal>
+            <Dependent Role="Batch">
+              <PropertyRef Name="Department_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Exam_BatchExam">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="Batch_Id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Batch_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Subject_BatchSubject">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="0..1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="Batch_Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="Batch_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_SemesterUser">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="Batch_Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Batch_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Exam_DepartmentExam">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_Id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Department_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_DepartmentUser">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Department_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Drop_Out_ExamDrop_Out">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Drop_Out" Type="Self.Drop_Out" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Drop_Out">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Drop_Out_UserDrop_Out">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Drop_Out" Type="Self.Drop_Out" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Drop_Out">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Enrolled_ExamEnrolled">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Enrolled" Type="Self.Enrolled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Enrolled">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Enrolled_UserEnrolled">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Enrolled" Type="Self.Enrolled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Enrolled">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Exam_SubjectExam">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Paper_ExamPaper">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Paper" Type="Self.Paper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Paper">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Result_ExamResult">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Schedule_ExamSchedule">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Exam_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Options_QuestionOptions">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Options" Type="Self.Option" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Options">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Paper_QuestionPaper">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Paper" Type="Self.Paper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Paper">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Question_SubjectQuestion">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Result_UserResult">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Result" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Schedule_RoomSchedule">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="Room_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Subject_UserSubject">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FYP_DB_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Batches" EntityType="Self.Batch" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Drop_Out" EntityType="Self.Drop_Out" />
+          <EntitySet Name="Enrolleds" EntityType="Self.Enrolled" />
+          <EntitySet Name="Exams" EntityType="Self.Exam" />
+          <EntitySet Name="Freezes" EntityType="Self.Freeze" />
+          <EntitySet Name="Options" EntityType="Self.Option" />
+          <EntitySet Name="Papers" EntityType="Self.Paper" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Results" EntityType="Self.Result" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="Batch_DepartmentBatch" Association="Self.Batch_DepartmentBatch">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Batch" EntitySet="Batches" />
+          </AssociationSet>
+          <AssociationSet Name="Exam_BatchExam" Association="Self.Exam_BatchExam">
+            <End Role="Batch" EntitySet="Batches" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="Subject_BatchSubject" Association="Self.Subject_BatchSubject">
+            <End Role="Batch" EntitySet="Batches" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="User_SemesterUser" Association="Self.User_SemesterUser">
+            <End Role="Batch" EntitySet="Batches" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Exam_DepartmentExam" Association="Self.Exam_DepartmentExam">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="User_DepartmentUser" Association="Self.User_DepartmentUser">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Drop_Out_ExamDrop_Out" Association="Self.Drop_Out_ExamDrop_Out">
+            <End Role="Exam" EntitySet="Exams" />
+            <End Role="Drop_Out" EntitySet="Drop_Out" />
+          </AssociationSet>
+          <AssociationSet Name="Drop_Out_UserDrop_Out" Association="Self.Drop_Out_UserDrop_Out">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Drop_Out" EntitySet="Drop_Out" />
+          </AssociationSet>
+          <AssociationSet Name="Enrolled_ExamEnrolled" Association="Self.Enrolled_ExamEnrolled">
+            <End Role="Exam" EntitySet="Exams" />
+            <End Role="Enrolled" EntitySet="Enrolleds" />
+          </AssociationSet>
+          <AssociationSet Name="Enrolled_UserEnrolled" Association="Self.Enrolled_UserEnrolled">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Enrolled" EntitySet="Enrolleds" />
+          </AssociationSet>
+          <AssociationSet Name="Exam_SubjectExam" Association="Self.Exam_SubjectExam">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="Paper_ExamPaper" Association="Self.Paper_ExamPaper">
+            <End Role="Exam" EntitySet="Exams" />
+            <End Role="Paper" EntitySet="Papers" />
+          </AssociationSet>
+          <AssociationSet Name="Result_ExamResult" Association="Self.Result_ExamResult">
+            <End Role="Exam" EntitySet="Exams" />
+            <End Role="Result" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="Schedule_ExamSchedule" Association="Self.Schedule_ExamSchedule">
+            <End Role="Exam" EntitySet="Exams" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="Options_QuestionOptions" Association="Self.Options_QuestionOptions">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Options" EntitySet="Options" />
+          </AssociationSet>
+          <AssociationSet Name="Paper_QuestionPaper" Association="Self.Paper_QuestionPaper">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Paper" EntitySet="Papers" />
+          </AssociationSet>
+          <AssociationSet Name="Question_SubjectQuestion" Association="Self.Question_SubjectQuestion">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="Result_UserResult" Association="Self.Result_UserResult">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Result" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="Schedule_RoomSchedule" Association="Self.Schedule_RoomSchedule">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="Subject_UserSubject" Association="Self.Subject_UserSubject">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FYP_DB_ModelStoreContainer" CdmEntityContainer="FYP_DB_Entities">
+          <EntitySetMapping Name="Batches">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Batch">
+              <MappingFragment StoreEntitySet="Batch">
+                <ScalarProperty Name="Batch_Id" ColumnName="Batch_Id" />
+                <ScalarProperty Name="Starting_Year" ColumnName="Starting_Year" />
+                <ScalarProperty Name="Ending_Year" ColumnName="Ending_Year" />
+                <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drop_Out">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Drop_Out">
+              <MappingFragment StoreEntitySet="Drop_Out">
+                <ScalarProperty Name="Drop_Out_Id" ColumnName="Drop_Out_Id" />
+                <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enrolleds">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Enrolled">
+              <MappingFragment StoreEntitySet="Enrolled">
+                <ScalarProperty Name="Enrolled_Id" ColumnName="Enrolled_Id" />
+                <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
+                <ScalarProperty Name="Total_Marks" ColumnName="Total_Marks" />
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="Batch_Id" ColumnName="Batch_Id" />
+                <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
+                <ScalarProperty Name="Exam_Session" ColumnName="Exam_Session" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Freezes">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Freeze">
+              <MappingFragment StoreEntitySet="Freeze">
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+                <ScalarProperty Name="Freezing_Date" ColumnName="Freezing_Date" />
+                <ScalarProperty Name="Unfreezing_Date" ColumnName="Unfreezing_Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Options">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Option">
+              <MappingFragment StoreEntitySet="Options">
+                <ScalarProperty Name="Option_Id" ColumnName="Option_Id" />
+                <ScalarProperty Name="Options" ColumnName="Options" />
+                <ScalarProperty Name="Correct_Answer" ColumnName="Correct_Answer" />
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Papers">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Paper">
+              <MappingFragment StoreEntitySet="Paper">
+                <ScalarProperty Name="Paper_Id" ColumnName="Paper_Id" />
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+                <ScalarProperty Name="Question_Marks" ColumnName="Question_Marks" />
+                <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Result">
+              <MappingFragment StoreEntitySet="Result">
+                <ScalarProperty Name="Result_Id" ColumnName="Result_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
+                <ScalarProperty Name="Mid_Marks" ColumnName="Mid_Marks" />
+                <ScalarProperty Name="Final_Marks" ColumnName="Final_Marks" />
+                <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
+                <ScalarProperty Name="Room_Capacity" ColumnName="Room_Capacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="Schedule_Id" ColumnName="Schedule_Id" />
+                <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
+                <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
+                <ScalarProperty Name="Time_From" ColumnName="Time_From" />
+                <ScalarProperty Name="Time_To" ColumnName="Time_To" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="FYP_DB_Model.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Batch_Id" ColumnName="Batch_Id" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="FYP_DB_Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+                <ScalarProperty Name="Batch_Id" ColumnName="Batch_Id" />
+                <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="User_Image" ColumnName="User_Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

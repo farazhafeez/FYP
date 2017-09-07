@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "ExamSchedule";
+    Layout = "~/Views/Shared/Student_Master_page.cshtml";
+}
+
+<div class="container" style="border: none; padding: 0px; border-radius: 4px;">
+    <h3><b>Exam Schedule</b></h3>
+    <hr>
+    <div class="container" style="border: 1px solid silver; padding: 0px; border-radius: 4px;">
+        <div class="container-fluid" style="background-color: #F4F4F4; padding: 12px; border-radius: 4px;"><span class="glyphicon glyphicon-filter"></span>Exam Schedule</div>
+        <br>
+        <div class="container">
+            <table class="table table-bordered table-striped" style="table-layout:fixed">
+                <tr>
+                    <th style="text-align:center;">Student ID</th>
+                    <th style="text-align:center;">Subject</th>
+                    <th style="text-align:center;">Room</th>
+                    <th style="text-align:center;">Date</th>
+                    <th style="text-align:center;">Time From</th>
+                    <th style="text-align:center;">Time To</th>
+                    <th style="text-align:center;">Exam Session</th>
+                </tr>
+                @{
+                    foreach (var i in ViewBag.schedule)
+                    {
+                        int x = 0;
+                        int y = 0;
+                        int z = 0;
+                        int k = 0;
+                        <tr>
+                            <td style="text-align:center;">@Html.Raw(HttpContext.Current.Session["User_Id"])</td>
+                            <td style="text-align:center;">@i.Subject.Subject_Name</td>
+                            <td style="text-align:center;">
+                                @foreach (var j in i.Schedules)
+                                {
+                                    if (k == 0)
+                                    {
+                                        @j.Room_Id
+                                    }
+                                    else
+                                    {
+                                       <text> , @j.Room_Id </text>
+                                    }
+                                    k++;
+                                }
+                            </td>
+                            <td style="text-align:center;">
+                                @foreach (var j in i.Schedules)
+                                {
+                                    if (x == 0)
+                                    {
+                                        if (@j.Time_From != null)
+                                        {
+                                            @j.Time_From.ToString("dd MMM yyyy")
+                                        }
+                                        else
+                                        {
+                                            <text>Date is not scheduled yet.</text>
+                                        }
+                                    }
+                                    x++;
+                                }
+                            </td>
+                            <td style="text-align:center;">
+                                @foreach (var j in i.Schedules)
+                                {
+                                    if (y == 0)
+                                    {
+                                        if (@j.Time_From != null)
+                                        {
+                                            @j.Time_From.ToString("h:mm:ss tt")
+                                        }
+                                        else
+                                        {
+                                            <text>Time is not scheduled yet.</text>
+                                        }
+                                    }
+                                    y++;
+                                }
+                            </td>
+                            <td style="text-align:center;">
+                                @foreach (var j in i.Schedules)
+                                {
+                                    if (z == 0)
+                                    {
+                                        if (@j.Time_From != null)
+                                        {
+                                            @j.Time_From.ToString("h:mm:ss tt")
+                                        }
+                                        else
+                                        {
+                                            <text>Time is not scheduled yet.</text>
+                                        }
+                                    }
+                                    z++;
+                                }
+                            </td>
+                            <td style="text-align:center;">@i.Exam_Session</td>
+                        </tr>
+                    }
+                }
+                
+
+            </table>
+        </div>
+    </div>
+</div>
+

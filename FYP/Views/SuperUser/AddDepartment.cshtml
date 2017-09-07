@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "AddDepartment";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Add Department</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/AddDepartment" method="post">
+                            <label>Department Id</label>
+                            <input type="text" name="Department_Id" id="dep" class = "form-control", placeholder = "Example: Bscs"/><br>
+                            <input type="submit" class="btn btn-primary submit-btn" value="Add">
+                        </form>
+
+                    </div>
+                </div>
+                <center><a href="/SuperUser/ManageDepartment">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(function () {
+        $("form").validate({
+            rules: {
+                Department_Id: {
+                    required: true,
+                    remote: {
+                        url: "/SuperUser/IsDepartment_IdAvailable",
+                        type: "post",
+                        data: {
+                            function () { return $("#dep").val(); },
+                                    },
+                                },
+                            },
+                    },
+            messages: {
+                Department_Id: {
+                    required: "Please enter department id !",
+                    remote: "Department id already exists !"
+                }, 
+               
+            },
+            submit: function (form) {
+                form.submit();
+            }
+        });
+    });
+</script>

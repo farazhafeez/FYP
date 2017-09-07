@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "AddBatch";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Add Batch</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/AddBatch" method="post">
+
+                            <label>Batch ID</label>
+                            <input type="text" name="Batch_Id" id="Batch_Id" class="form-control" placeholder="Example: bscs-f13"/><br>
+
+                            <label>Batch Starting Year</label>
+                            <input type="text" name="Starting_Year" class="form-control" placeholder="Example: 2013" /><br>
+
+                            <label>Batch Ending Year</label>
+                            <input type="text" name="Ending_Year" class="form-control" placeholder="Example: 2017" /><br>
+
+                            <label>Department</label>
+                            <select class="form-control" name="Department_Id" id="dep"></select><br>
+
+                            <input type="submit" class="btn btn-primary submit-btn" value="Add">
+
+                        </form>
+                    </div>
+                </div>
+                <center><a href="/SuperUser/ManageBatch">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "/SuperUser/AjaxMethodForDepartment",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    len = response.length;
+                    if (len == 0) {
+                        $("#dep").html('<option disabled selected>--There are no Departments in DB-</option>');
+                    }
+                    else {
+                        $("#dep").html('<option disabled selected>--Select a Department--</option>');
+                        for (var i = 0; i < len; i++) {
+                            $("#dep").append(new Option(response[i].Department_Id, response[i].Department_Id));
+                        }
+                    }
+                },
+                error: function (response) {
+                    $("#dep").html('<option disabled selected>--There are no Departments in DB--</option>');
+                }
+            });
+        });
+
+
+        $("form").validate({
+            rules: {
+                Starting_Year: {
+                    required: true,
+                    number: true,
+                    rangelength: [4,4]
+                },
+                Ending_Year: {
+                    required: true,
+                    number: true,
+                    rangelength: [4, 4]
+                },
+                Department_Id: "required",
+                Batch_Id: {
+                    required: true,
+                    remote: {
+                        url: "/SuperUser/IsBatch_IdAvailable",
+                        type: "post",
+                        data: {
+                            function () { return $("#Batch").val(); },
+                        },
+                    },
+                },
+            },
+            messages: {
+                Starting_Year: {
+                    required: "Please enter Starting Year!",
+                    number: "It must be a number!",
+                    rangelength:"Its length must be 4 digits!",
+                }, 
+                Ending_Year: {
+                    required: "Please enter Ending Year!",
+                    number: "It must be a number!",
+                    rangelength: "Its length must be 4 digits!",
+                }, 
+                Department_Id: "Please select a Department!",
+                Batch_Id: {
+                    required: "Please enter Batch id!",
+                    remote: "Batch id already exists!"
+                },
+
+            },
+            submit: function (form) {
+                form.submit();
+            }
+        });
+
+
+    });
+</script>
