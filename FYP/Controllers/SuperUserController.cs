@@ -10,7 +10,6 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using FYP.Models;
 using System.IO;
-using FYP.CacheModel;
 using System.Web.UI;
 
 namespace FYP.Controllers
