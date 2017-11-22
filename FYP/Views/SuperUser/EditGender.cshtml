@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "EditGender";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><b>Change Gender</b></center></div>
+                    <div class="panel-body">
+
+                        <form action="/SuperUser/EditGender" method="post" id="validateform">
+
+                            <label>Gender:</label><br><br>
+                            <center>
+                            <input type="radio" name="gender" value="Male"> Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="gender" value="Female" checked> Female
+                            </center><br>
+
+                            <input type="submit" onclick="return validate_form()" value="Save" class="btn btn-primary submit-btn" />
+
+                        </form>
+
+                    </div>
+                </div>
+                <center><a href="/SuperUser/SuperUserProfile">Go Back</a></center>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+
+        $("#validateform").validate({
+            rules: {
+                gender: "required",
+            },
+            messages: {
+                gender: "You have to select a value!",
+            },
+            submit: function () {
+                $("#validateform").submit();
+            }
+        });
+    });
+</script>

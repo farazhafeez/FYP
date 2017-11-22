@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="CacheModel\NoCache.cs" />
     <Compile Include="Controllers\ExamControllerController.cs" />
     <Compile Include="Controllers\ExamResultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -515,6 +516,15 @@
     <Content Include="Views\Teacher\View_MCQ_Detail.cshtml" />
     <Content Include="Views\Teacher\View_TrueFalse.cshtml" />
     <Content Include="Views\Teacher\View_TrueFalseDetail.cshtml" />
+    <Content Include="Views\SuperUser\SuperUserProfile.cshtml" />
+    <Content Include="Views\SuperUser\EditProfile.cshtml" />
+    <Content Include="Views\SuperUser\UploadImage.cshtml" />
+    <Content Include="Views\ExamController\ExamControllerProfile.cshtml" />
+    <Content Include="Views\ExamController\EditProfile.cshtml" />
+    <Content Include="Views\ExamController\UploadImage.cshtml" />
+    <Content Include="Views\SuperUser\ChangePassword.cshtml" />
+    <Content Include="Views\SuperUser\EditContactNumber.cshtml" />
+    <Content Include="Views\SuperUser\EditGender.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

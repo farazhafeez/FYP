@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FYP.Models;
 using System.Data.Entity;
+using System.IO;
 
 namespace FYP.Controllers
 {
@@ -434,6 +435,132 @@ namespace FYP.Controllers
                 return Json(null);
             }
         }
+
+
+
+        public ActionResult ExamControllerProfile()
+        {
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                string imageurl = "";
+                var user1 = (string)Session["User_Id"];
+                User user = obj.Users.First(a => a.User_Id == user1);
+                string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user1) + Path.GetExtension(".jpg"));
+                string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user1) + Path.GetExtension(".png"));
+                if (System.IO.File.Exists(imageurlforJPG))
+                {
+                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName(user1) + System.IO.Path.GetExtension(".jpg");
+                }
+                else if (System.IO.File.Exists(imageurlforPNG))
+                {
+                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName(user1) + System.IO.Path.GetExtension(".png");
+                }
+                else
+                {
+                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName("PlaceHolder") + System.IO.Path.GetExtension(".jpg");
+                }
+                ViewBag.imageURL = imageurl;
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        public ActionResult EditProfile(string Success_Message)
+        {
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                string imageurl = "";
+                var user1 = (string)Session["User_Id"];
+                User user = obj.Users.First(a => a.User_Id == user1);
+                string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user1) + Path.GetExtension(".jpg"));
+                string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user1) + Path.GetExtension(".png"));
+                if (System.IO.File.Exists(imageurlforJPG))
+                {
+                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName(user1) + System.IO.Path.GetExtension(".jpg");
+                }
+                else if (System.IO.File.Exists(imageurlforPNG))
+                {
+                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName(user1) + System.IO.Path.GetExtension(".png");
+                }
+                else
+                {
+                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName("PlaceHolder") + System.IO.Path.GetExtension(".jpg");
+                }
+                ViewBag.ImageURL = imageurl;
+                ViewBag.Message = Success_Message;
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(FormCollection fc)
+        {
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                var user1 = (string)Session["User_Id"];
+                User user = obj.Users.First(a => a.User_Id == user1);
+                var Contact_No = fc["contact_no"];
+                var Password = fc["password"];
+                var Gender = fc["gender"];
+                user.Contact_No = Contact_No;
+                user.Password = Password;
+                user.Gender = Gender;
+                //todo  
+                obj.SaveChanges();
+                return RedirectToAction("EditProfile", "ExamController", new { Success_Message = "Edit Profile Successfully" });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        public JsonResult Password_IsAvailable(string OldPassword)
+        {
+            var user1 = (string)Session["User_Id"];
+            return Json(obj.Users.Any(a => a.User_Id == user1 && a.Password == OldPassword));
+        }
+
+        [HttpPost]
+        public ActionResult UploadImage(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string user = (string)Session["User_Id"];
+                    string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".jpg"));
+                    string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".png"));
+                    if (System.IO.File.Exists(imageurlforJPG))
+                    {
+                        System.IO.File.Delete(imageurlforJPG);
+                    }
+                    else if (System.IO.File.Exists(imageurlforPNG))
+                    {
+                        System.IO.File.Delete(imageurlforPNG);
+                    }
+                    string path = Path.Combine(Server.MapPath("~/Content/Images/Pictures"), Path.GetFileName(user) + Path.GetExtension(file.FileName));
+                    file.SaveAs(path);
+                    return RedirectToAction("EditProfile", "ExamController");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return View();
+        }
+
+
+
         public ActionResult Logout()
         {
             Session.Remove("User_Id");

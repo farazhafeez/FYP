@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
-    @*<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>*@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
@@ -53,16 +52,46 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <font>
+                                @{
+                                    var user = (string)Session["User_Id"];
+                                    string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".jpg"));
+                                    string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".png"));
+                                    if (System.IO.File.Exists(imageurlforJPG))
+                                    {
+                                        <img class="img-circle" src="@Url.Content("~/Content/Images/Pictures/"+System.IO.Path.GetFileName(user)+System.IO.Path.GetExtension(".jpg"))" style="width:25px; height:25px; object-fit:cover;" />
+                                    }
+                                    else if (System.IO.File.Exists(imageurlforPNG))
+                                    {
+                                        <img class="img-circle" src="@Url.Content("~/Content/Images/Pictures/"+System.IO.Path.GetFileName(user)+System.IO.Path.GetExtension(".jpg"))" style="width:25px; height:25px; object-fit:cover;" />
+                                    }
+                                    else
+                                    {
+                                        <img class="img-circle" src="@Url.Content("~/Content/Images/Pictures/"+System.IO.Path.GetFileName("PlaceHolder")+System.IO.Path.GetExtension(".jpg"))" style="width:25px; height:25px; object-fit:cover;" />
+                                    }
+                                }
+                                Signed in as <b>@Html.Raw(HttpContext.Current.Session["User_Id"])</b>
+                            </font><span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/SuperUser/SuperUserProfile">My Profile</a></li>
+                            <li><a href="/SuperUser/Logout" style="color:dimgrey;"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @*<ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i>Welcome @Html.Raw(HttpContext.Current.Session["User_Name"])</i><b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/SuperUser/Logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul>*@
             </div>
         </div>
     </nav>
     @RenderBody();
 </body>
-</html
+</html>
 @*@Url.Action("LogOut","Home", new {User_Id = Html.Raw(HttpContext.Current.Session["User_Id"])},null)*@

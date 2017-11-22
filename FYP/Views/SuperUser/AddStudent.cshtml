@@ -20,6 +20,9 @@
                     <div class="panel-body">
 
                         <form action="/SuperUser/AddStudent" method="post">
+                            <img typeof="file" src="~/Content/images/Pictures/placeHolder.jpg" id="img" style="height:auto; width:150px;"/><br>
+
+                            @*<input type="file" id="input_img" hidden/>*@
 
                             <label>Id</label>
                             <input type="text" name="User_Id" class="form-control" placeholder="Example: johnsmith@gmail.com"/><br>
@@ -90,6 +93,10 @@
 
 <script>
     $(function () {
+
+        //$("#img").click(function () {
+        //    $("#input_img").click();
+        //});
 
         jQuery.validator.addMethod("pwcheck",
             function (value, element, param) {
