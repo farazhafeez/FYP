@@ -4,41 +4,41 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dcd81f5833a14e369d272234e7862a3e" Name="Diagram1">
-        <EntityTypeShape EntityType="FYP_DB_Model.Batch" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Department" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Drop_Out" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Enrolled" Width="1.5" PointX="10.5" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Exam" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Freeze" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Option" Width="1.5" PointX="12.75" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Paper" Width="1.5" PointX="12.75" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Question" Width="1.5" PointX="10.5" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Result" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Room" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Schedule" Width="1.5" PointX="7.5" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.Subject" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="FYP_DB_Model.User" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
-        <AssociationConnector Association="FYP_DB_Model.Batch_DepartmentBatch" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Exam_BatchExam" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Subject_BatchSubject" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.User_SemesterUser" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Exam_DepartmentExam" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.User_DepartmentUser" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Drop_Out_ExamDrop_Out" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Drop_Out_UserDrop_Out" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Enrolled_ExamEnrolled" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Enrolled_UserEnrolled" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Exam_SubjectExam" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Paper_ExamPaper" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Result_ExamResult" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Schedule_ExamSchedule" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Options_QuestionOptions" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Paper_QuestionPaper" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Question_SubjectQuestion" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Result_UserResult" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Schedule_RoomSchedule" ManuallyRouted="false" />
-        <AssociationConnector Association="FYP_DB_Model.Subject_UserSubject" ManuallyRouted="false" />
+      <Diagram DiagramId="1db82bb95d4941b88cb1e27b6bbbe330" Name="Diagram1">
+        <EntityTypeShape EntityType="FYP_DBModel.Batch" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Department" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Drop_Out" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Enrolled" Width="1.5" PointX="10.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Exam" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Freeze" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Option" Width="1.5" PointX="12.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Paper" Width="1.5" PointX="12.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Question" Width="1.5" PointX="10.5" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Result" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Room" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Schedule" Width="1.5" PointX="7.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.Subject" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYP_DBModel.User" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <AssociationConnector Association="FYP_DBModel.Batch_DepartmentBatch" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Exam_BatchExam" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Subject_BatchSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.User_SemesterUser" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Exam_DepartmentExam" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.User_DepartmentUser" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Drop_Out_ExamDrop_Out" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Drop_Out_UserDrop_Out" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Enrolled_ExamEnrolled" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Enrolled_UserEnrolled" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Exam_SubjectExam" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Paper_ExamPaper" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Result_ExamResult" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Schedule_ExamSchedule" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Options_QuestionOptions" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Paper_QuestionPaper" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Question_SubjectQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Result_UserResult" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Schedule_RoomSchedule" ManuallyRouted="false" />
+        <AssociationConnector Association="FYP_DBModel.Subject_UserSubject" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

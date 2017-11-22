@@ -4,11 +4,75 @@
 }
 
 <style>
-    #displaypicture {
-        margin-top: 30px;
-        object-fit: cover;
+    #text_div:hover {
+        background-color: #f9f9f9;
+    }
+
+    .imagecontainer {
+        position: relative;
         width: 270px;
+    }
+
+    .image {
         height: 270px;
+        width: 270px;
+        object-fit: cover;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: black;
+        overflow: hidden;
+        width: 270px;
+        height: 0;
+        transition: .5s ease;
+        opacity: 0.5;
+    }
+
+    .imagecontainer:hover .overlay {
+        height: 30%;
+    }
+
+    .overlay:hover {
+        background-color: black;
+        opacity: 1;
+    }
+
+    .text {
+        white-space: nowrap;
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+
+    table {
+        width: 100%;
+        text-align: left;
+    }
+
+    tr {
+        height: 40px;
+        text-align: center;
+    }
+
+    .bottom-border {
+        border-bottom: 1px solid silver;
+    }
+
+    .top-border {
+        border-top: 1px solid silver;
+    }
+
+    .right-border {
+        border-right: 1px solid silver;
     }
 </style>
 
@@ -16,22 +80,163 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4" style="text-align:left;">
-            <img id="displaypicture" class="img-rounded thumbnail" src="@Url.Content(ViewBag.imageURL)" />
-            <button type="button" class="btn btn-primary" style="text-align:center; width:270px; height:40px;" onclick="location.href='@Url.Action("EditProfile", "ExamController")'"><span class="glyphicon glyphicon-edit"></span> Edit Profile </button>
+
+            <div class="imagecontainer" style="text-align:right; margin-top:30px;">
+                <img class="image thumbnail" src="@Url.Content(ViewBag.ImageURL)">
+                <a href="#" id="update_picture">
+                    <div class="overlay">
+                        <div class="text"><span class="glyphicon glyphicon-camera"></span> Update Profile Picture</div>
+                    </div>
+                </a>
+            </div>
+            <div class="container">
+                <div class="modal fade" id="selectPictureModal" role="dialog">
+                    <div class="modal-dialog modal-md">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Upload Profile Picture</h4>
+                            </div>
+                            <div class="modal-body input-file">
+                                <div style="width:100%;height:130px;text-align:center;line-height:130px;" id="text_div">
+                                    <font style="font-size:22px;color:gray;">+ Upload Picture</font>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!--upload image Modal-->
+
+                @using (Html.BeginForm("UploadImage", "ExamController", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="modal fade" id="uploadPictureModal" role="dialog">
+                        <div class="modal-dialog modal-md">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Create Profile Picture</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="item"></div>
+                                    <img id="displaypicture" style="width:300px; height:auto;object-fit:cover;" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel_btn">Cancel</button>
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-6">
-            <label>User Id:</label>
-            <input type="text" class="form-control" value="@Model.User_Id" readonly /><br>
-            <label>First Name:</label>
-            <input type="text" class="form-control" value="@Model.First_Name" readonly /><br>
-            <label>Last Name:</label>
-            <input type="text" class="form-control" value="@Model.Last_Name" readonly /><br>
-            <label>Contact Number:</label>
-            <input type="text" class="form-control" value="@Model.Contact_No" readonly /><br>
-            <label>Gender:</label>
-            <input type="text" class="form-control" value="@Model.Gender" readonly /><br>
+        <div class="col-md-7" style="margin-top:50px;">
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success alert-dismissable fade in" style="text-align:center;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    @ViewBag.Message
+                </div>
+                <td></td>
+            }
+            <table border="0">
+
+                <tr class="bottom-border top-border">
+                    <td class="right-border"><label>User Id:</label></td>
+                    <td><p>@Model.User_Id</p></td>
+                </tr>
+                <tr class="bottom-border">
+                    <td class="right-border"><label>First Name:</label></td>
+                    <td><p>@Model.First_Name</p></td>
+                </tr>
+                <tr class="bottom-border">
+                    <td class="right-border"><label>Last Name:</label></td>
+                    <td><p>@Model.Last_Name</p></td>
+                </tr>
+                <tr>
+                    <td class="bottom-border right-border"><label>Contact Number:</label></td>
+                    <td class="bottom-border"><p>@Model.Contact_No</p></td>
+                    <td style="padding-left:10px"><a href="/ExamController/EditContactNumber">Edit</a></td>
+                </tr>
+                <tr>
+                    <td class="bottom-border right-border"><label>Gender:</label></td>
+                    <td class="bottom-border"><p>@Model.Gender</p></td>
+                    <td style="padding-left:10px"><a href="/ExamController/EditGender">Edit</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;"><a href="/ExamController/ChangePassword">Change Password</a></td>
+                </tr>
+            </table>
         </div>
-        <div class="col-md-1"></div>
     </div>
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#update_picture").click(function () {
+            $("#selectPictureModal").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+        });
+    });
+    $(function () {
+        $("#cancel_btn").click(function () {
+            $("#input-div").html("");
+            $("#uploadfilepath").val("");
+            $("#uploadPictureModal").modal('hdie');
+        });
+    });
+    function readURL(input) {
+        $('#uploadPictureModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        var div = $('<div id="input-div"></div>');
+        var inputs = $("#uploadfilepath").clone();
+        div.append(inputs);
+        $("#item").append(div);
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#displaypicture')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    function bs_input_file() {
+        $(".input-file").before(
+            function () {
+                if (!$(this).prev().hasClass('input-ghost')) {
+                    var element = $("<input type='file' name='file' id='uploadfilepath' onchange='readURL(this)' class='input-ghost' style='display:none;' >");
+                    element.attr("name", $(this).attr("name"));
+                    element.change(function () {
+                    });
+                    $(this).find('#text_div').css("cursor", "pointer");
+                    $(this).find('#text_div').mousedown(function () {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+    $(function () {
+        bs_input_file();
+    });
+
+</script>

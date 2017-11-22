@@ -129,10 +129,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="CacheModel\NoCache.cs" />
     <Compile Include="Controllers\ExamControllerController.cs" />
     <Compile Include="Controllers\ExamResultController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ExamScheduleController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PaperCreationController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\SuperUserController.cs" />
@@ -436,11 +436,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Teacher\Add_Question.cshtml" />
-    <Content Include="Views\Teacher\Index.cshtml" />
     <Content Include="Views\Teacher\Manage_Questions.cshtml" />
-    <Content Include="Views\SuperUser\Index.cshtml" />
     <Content Include="Views\SuperUser\ManageTeacher.cshtml" />
     <Content Include="Views\SuperUser\ManageStudent.cshtml" />
     <Content Include="Views\SuperUser\AddTeacher.cshtml" />
@@ -466,8 +463,6 @@
     <Content Include="Views\SuperUser\AddBatch.cshtml" />
     <Content Include="Views\Shared\ExamControllerLayout.cshtml" />
     <Content Include="Views\ExamController\CreateExam.cshtml" />
-    <Content Include="Views\ExamController\Index.cshtml" />
-    <Content Include="Views\ExamController\ExamCreated.cshtml" />
     <Content Include="Views\ExamController\ExamSchedule.cshtml" />
     <Content Include="Views\ExamController\ManageExam.cshtml" />
     <Content Include="Views\SuperUser\ShowTeacherSubjects.cshtml" />
@@ -482,7 +477,6 @@
     <Content Include="Views\ExamResult\ResultForSuperUser.cshtml" />
     <Content Include="Views\ExamResult\ResultForExamController.cshtml" />
     <Content Include="Views\SuperUser\UserImage.cshtml" />
-    <Content Include="Views\ExamResult\Index.cshtml" />
     <Content Include="Views\ExamResult\Students_ExamResult.cshtml" />
     <Content Include="Views\ExamResult\Student_ExamResult.cshtml" />
     <Content Include="Views\PaperCreation\Create_Criteria.cshtml" />
@@ -492,26 +486,19 @@
     <Content Include="Views\Shared\Student_Master_page.cshtml" />
     <Content Include="Views\Shared\Teacher_Master_Page.cshtml" />
     <Content Include="Views\Student\Count_Marks.cshtml" />
-    <Content Include="Views\Student\EditProfile.cshtml" />
-    <Content Include="Views\Student\ExamSchedule.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\Instructions.cshtml" />
     <Content Include="Views\Student\Logout.cshtml" />
     <Content Include="Views\Student\Start_Exam.cshtml" />
-    <Content Include="Views\Student\StudentProfile.cshtml" />
     <Content Include="Views\Teacher\Create_Criteria.cshtml" />
     <Content Include="Views\Teacher\Create_Exam.cshtml" />
     <Content Include="Views\Teacher\Del_MCQ.cshtml" />
     <Content Include="Views\Teacher\Del_TrueFalse.cshtml" />
-    <Content Include="Views\Teacher\EditProfile.cshtml" />
     <Content Include="Views\Teacher\Edit_MCQ.cshtml" />
     <Content Include="Views\Teacher\Edit_TrueFalse.cshtml" />
     <Content Include="Views\Teacher\Exam_Status.cshtml" />
     <Content Include="Views\Teacher\Logout.cshtml" />
     <Content Include="Views\Teacher\Send_Exam.cshtml" />
     <Content Include="Views\Teacher\Subjects.cshtml" />
-    <Content Include="Views\Teacher\TeacherProfile.cshtml" />
-    <Content Include="Views\Teacher\UploadImage.cshtml" />
     <Content Include="Views\Teacher\View_MCQ.cshtml" />
     <Content Include="Views\Teacher\View_MCQ_Detail.cshtml" />
     <Content Include="Views\Teacher\View_TrueFalse.cshtml" />
@@ -519,12 +506,29 @@
     <Content Include="Views\SuperUser\SuperUserProfile.cshtml" />
     <Content Include="Views\SuperUser\EditProfile.cshtml" />
     <Content Include="Views\SuperUser\UploadImage.cshtml" />
-    <Content Include="Views\ExamController\ExamControllerProfile.cshtml" />
-    <Content Include="Views\ExamController\EditProfile.cshtml" />
-    <Content Include="Views\ExamController\UploadImage.cshtml" />
     <Content Include="Views\SuperUser\ChangePassword.cshtml" />
     <Content Include="Views\SuperUser\EditContactNumber.cshtml" />
     <Content Include="Views\SuperUser\EditGender.cshtml" />
+    <Content Include="Views\SuperUser\HomePage.cshtml" />
+    <Content Include="Views\ExamController\HomePage.cshtml" />
+    <Content Include="Views\Login\LoginPage.cshtml" />
+    <Content Include="Views\ExamController\ExamControllerProfile.cshtml" />
+    <Content Include="Views\ExamController\EditContactNumber.cshtml" />
+    <Content Include="Views\ExamController\EditGender.cshtml" />
+    <Content Include="Views\ExamController\UploadImage.cshtml" />
+    <Content Include="Views\ExamController\ChangePassword.cshtml" />
+    <Content Include="Views\Teacher\HomePage.cshtml" />
+    <Content Include="Views\Teacher\TeacherProfile.cshtml" />
+    <Content Include="Views\Teacher\EditContactNumber.cshtml" />
+    <Content Include="Views\Teacher\EditGender.cshtml" />
+    <Content Include="Views\Teacher\UploadImage.cshtml" />
+    <Content Include="Views\Teacher\ChangePassword.cshtml" />
+    <Content Include="Views\ExamSchedule\ExamScheduleForStudent.cshtml" />
+    <Content Include="Views\Student\StudentProfile.cshtml" />
+    <Content Include="Views\Student\EditContactNumber.cshtml" />
+    <Content Include="Views\Student\EditGender.cshtml" />
+    <Content Include="Views\Student\ChangePassword.cshtml" />
+    <Content Include="Views\Student\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

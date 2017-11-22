@@ -11,8 +11,7 @@ namespace FYP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         public User()
@@ -22,7 +21,7 @@ namespace FYP.Models
             this.Results = new HashSet<Result>();
             this.Subjects = new HashSet<Subject>();
         }
-
+    
         public string User_Id { get; set; }
         public string Password { get; set; }
         public string First_Name { get; set; }
@@ -33,8 +32,8 @@ namespace FYP.Models
         public string Department_Id { get; set; }
         public string Section { get; set; }
         public string Status { get; set; }
+        public byte[] User_Image { get; set; }
         public string Gender { get; set; }
-        public string User_Image { get; set; }
     
         public virtual Batch Batch { get; set; }
         public virtual Department Department { get; set; }

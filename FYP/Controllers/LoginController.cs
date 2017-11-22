@@ -1,19 +1,21 @@
-﻿using System;
+﻿using FYP.Models;
+using FYP.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FYP.Models;
-using FYP.Models.ViewModel;
 
 namespace FYP.Controllers
 {
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
         //
-        // GET: /Home/
+        // GET: /Login/
+
         FYP_DB_Entities obj = new FYP_DB_Entities();
-        public ActionResult Index()
+
+        public ActionResult LoginPage()
         {
             User user;
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -24,19 +26,19 @@ namespace FYP.Controllers
 
                 if (user.Role == "Teacher")
                 {
-                    return RedirectToAction("Index", "Teacher");
+                    return RedirectToAction("HomePage", "Teacher");
                 }
                 else if (user.Role == "Student")
                 {
-                    return RedirectToAction("Index", "Student");
+                    return RedirectToAction("HomePage", "Student");
                 }
                 else if (user.Role == "SuperUser")
                 {
-                    return RedirectToAction("Index", "SuperUser");
+                    return RedirectToAction("HomePage", "SuperUser");
                 }
                 else if (user.Role == "ExamController")
                 {
-                    return RedirectToAction("Index", "ExamController");
+                    return RedirectToAction("HomePage", "ExamController");
                 }
             }
             else
@@ -46,7 +48,7 @@ namespace FYP.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Index(ClassForLogin u)
+        public ActionResult LoginPage(ClassForLogin u)
         {
             User us = new User();
             if (ModelState.IsValid)
@@ -59,28 +61,28 @@ namespace FYP.Controllers
                         Session["User_Id"] = us.User_Id;
                         Session["User_Password"] = us.Password;
                         Session["User_Name"] = us.First_Name + " " + us.Last_Name;
-                        return RedirectToAction("Index", "Teacher");
+                        return RedirectToAction("HomePage", "Teacher");
                     }
                     else if (us.Role.Equals("Student"))
                     {
                         Session["User_Id"] = us.User_Id;
                         Session["User_Password"] = us.Password;
                         Session["User_Name"] = us.First_Name + " " + us.Last_Name;
-                        return RedirectToAction("Index", "Student");
+                        return RedirectToAction("HomePage", "Student");
                     }
                     else if (us.Role.Equals("SuperUser"))
                     {
                         Session["User_Id"] = us.User_Id;
                         Session["User_Password"] = us.Password;
                         Session["User_Name"] = us.First_Name + " " + us.Last_Name;
-                        return RedirectToAction("Index", "SuperUser");
+                        return RedirectToAction("HomePage", "SuperUser");
                     }
                     else if (us.Role.Equals("ExamController"))
                     {
                         Session["User_Id"] = us.User_Id;
                         Session["User_Password"] = us.Password;
                         Session["User_Name"] = us.First_Name + " " + us.Last_Name;
-                        return RedirectToAction("Index", "ExamController");
+                        return RedirectToAction("HomePage", "ExamController");
                     }
                 }
                 catch
@@ -95,5 +97,6 @@ namespace FYP.Controllers
             }
             return View();
         }
+
     }
 }

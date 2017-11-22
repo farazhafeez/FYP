@@ -17,17 +17,7 @@ namespace FYP.Controllers
         List<Question> question_tf = new List<Question>();
         Random rand = new Random();
 
-        public ActionResult Index()
-        {
-            if (Session["User_Id"] != null && Session["User_Password"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
+        #region Check Exam Status
         public ActionResult Exam_Status(string Success_Message)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -41,9 +31,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
+        #endregion
+        #region Set Criteria For Paper
         public ActionResult Create_Criteria(string Subject_Id, string Error_Message)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -115,12 +107,14 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
         }
+        #endregion
+        #region Create Paper For Specific Exam
         public ActionResult Create_Paper(FormCollection fc)
         {
-            if(Session["User_Id"] != null && Session["User_Password"] != null)
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
                 int Subject_Id = int.Parse(fc["subject_id"]);
                 string subject_name = fc["subject"];
@@ -2751,7 +2745,8 @@ namespace FYP.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        
+        #endregion
+        #region Send Paper To ExamController For Schedule
         public ActionResult Send_Paper(FormCollection fc)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -2785,7 +2780,7 @@ namespace FYP.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
+        #endregion
 
     }
 }

@@ -10,7 +10,6 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using FYP.Models;
 using System.IO;
-using FYP.CacheModel;
 using System.Web.UI;
 
 namespace FYP.Controllers
@@ -22,7 +21,8 @@ namespace FYP.Controllers
 
         FYP_DB_Entities obj = new FYP_DB_Entities();
 
-        public ActionResult Index()
+        #region SuperUser HomePage
+        public ActionResult HomePage()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
@@ -30,14 +30,10 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
-
-
-
-
+        #endregion
         #region ManageTeachers
 
         public ActionResult ManageTeacher()
@@ -49,7 +45,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -61,7 +57,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -81,7 +77,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -94,7 +90,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -115,16 +111,10 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
         #endregion
-
-
-
-
-
         #region ManageStudents
 
         public ActionResult ManageStudent()
@@ -139,12 +129,12 @@ namespace FYP.Controllers
                 }
                 catch
                 {
-                    return RedirectToAction("Index", "SuperUser");
+                    return RedirectToAction("HomePage", "SuperUser");
                 }
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -156,7 +146,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -176,7 +166,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -189,7 +179,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -210,16 +200,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
         #endregion
-
-
-
-
-
         #region ManageExamController
 
         public ActionResult ManageExamController()
@@ -234,12 +219,12 @@ namespace FYP.Controllers
                 }
                 catch
                 {
-                    return RedirectToAction("Index", "SuperUser");
+                    return RedirectToAction("HomePage", "SuperUser");
                 }
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -251,7 +236,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -271,7 +256,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -284,7 +269,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -304,16 +289,10 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
         #endregion
-
-
-
-
-
         #region ManageSubjects
 
         public ActionResult ManageSubject()
@@ -325,7 +304,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
 
         }
@@ -338,7 +317,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -375,7 +354,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -395,7 +374,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -413,7 +392,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -427,16 +406,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
         #endregion
-
-
-
-
-
         #region ManageDepartments
 
         public ActionResult ManageDepartment()
@@ -481,11 +455,6 @@ namespace FYP.Controllers
         }
 
         #endregion
-
-
-
-
-
         #region ManageBatches
 
         public ActionResult ManageBatch()
@@ -532,11 +501,6 @@ namespace FYP.Controllers
         }
 
         #endregion
-
-
-
-
-
         #region ManageRooms
 
         public ActionResult ManageRoom()
@@ -606,48 +570,8 @@ namespace FYP.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
-        public ActionResult ChangePassword()
-        {
-            if (Session["User_Id"] != null && Session["User_Password"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
-        [HttpPost]
-        public ActionResult ChangePassword(string password)
-        {
-            if (Session["User_Id"] != null && Session["User_Password"] != null)
-            {
-                var userId = Session["User_Id"].ToString();
-                var user = obj.Users.First(x => x.User_Id == userId);
-                user.Password = password;
-
-                obj.SaveChanges();
-
-                TempData["EditProfile"] = "Password was changed successfully !";
-
-                return RedirectToAction("SuperUserProfile", "SuperUser");
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
         #endregion
-
-
-
-
-
         #region ManageProfile
-
         public ActionResult SuperUserProfile()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -675,7 +599,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -683,11 +607,13 @@ namespace FYP.Controllers
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
-                return View();
+                var userId = Session["User_Id"].ToString();
+                User user = obj.Users.First(a => a.User_Id == userId);
+                return View(user);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -708,7 +634,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -716,11 +642,13 @@ namespace FYP.Controllers
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
-                return View();
+                var userId = Session["User_Id"].ToString();
+                User user = obj.Users.First(a => a.User_Id == userId);
+                return View(user);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -741,16 +669,78 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
+            }
+        }
+
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
+        [HttpPost]
+        public ActionResult UploadImage(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string user = (string)Session["User_Id"];
+                    string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".jpg"));
+                    string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".png"));
+                    if (System.IO.File.Exists(imageurlforJPG))
+                    {
+                        System.IO.File.Delete(imageurlforJPG);
+                    }
+                    else if (System.IO.File.Exists(imageurlforPNG))
+                    {
+                        System.IO.File.Delete(imageurlforPNG);
+                    }
+                    string path = Path.Combine(Server.MapPath("~/Content/Images/Pictures"), Path.GetFileName(user) + Path.GetExtension(file.FileName));
+                    file.SaveAs(path);
+
+                    return RedirectToAction("SuperUserProfile", "SuperUser");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return View();
+        }
+
+        public ActionResult ChangePassword()
+        {
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(string password)
+        {
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                var userId = Session["User_Id"].ToString();
+                var user = obj.Users.First(x => x.User_Id == userId);
+                user.Password = password;
+
+                obj.SaveChanges();
+
+                TempData["EditProfile"] = "Password was changed successfully !";
+
+                return RedirectToAction("SuperUserProfile", "SuperUser");
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
         #endregion
-
-
-
-
-
         #region FreezeStudents
 
         public ActionResult ManageFreezeStudents()
@@ -763,7 +753,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -786,7 +776,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -808,7 +798,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -821,7 +811,7 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
@@ -846,16 +836,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
         #endregion
-
-
-
-
-
         #region LocalApis
 
         //Activate or Deactivate Subject
@@ -1030,10 +1015,6 @@ namespace FYP.Controllers
             }
         }
 
-
-
-
-
         //RemoteValidations
         [HttpPost]
         public JsonResult IsUser_IdAvailable(string User_Id)
@@ -1073,119 +1054,15 @@ namespace FYP.Controllers
         }
 
         #endregion
-
-
-
-
-
         #region Logout
-
         public ActionResult Logout()
         {
 
             Session.Remove("User_Id");
             Session.Remove("User_Password");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LoginPage", "Login");
         }
 
         #endregion
-
-
-
-
-        #region UploadImage
-
-        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-        [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase file)
-        {
-            if (file != null && file.ContentLength > 0)
-                try
-                {
-                    string user = (string)Session["User_Id"];
-                    string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".jpg"));
-                    string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user) + Path.GetExtension(".png"));
-                    if (System.IO.File.Exists(imageurlforJPG))
-                    {
-                        System.IO.File.Delete(imageurlforJPG);
-                    }
-                    else if (System.IO.File.Exists(imageurlforPNG))
-                    {
-                        System.IO.File.Delete(imageurlforPNG);
-                    }
-                    string path = Path.Combine(Server.MapPath("~/Content/Images/Pictures"), Path.GetFileName(user) + Path.GetExtension(file.FileName));
-                    file.SaveAs(path);
-
-                    return RedirectToAction("SuperUserProfile", "SuperUser");
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
-                }
-            else
-            {
-                ViewBag.Message = "You have not specified a file.";
-            }
-            return View();
-        }
-
-        #endregion
-
-
-
-
-
-        //public ActionResult EditProfile(string Success_Message)
-        //{
-        //    if (Session["User_Id"] != null && Session["User_Password"] != null)
-        //    {
-        //        string imageurl = "";
-        //        var user1 = (string)Session["User_Id"];
-        //        User user = obj.Users.First(a => a.User_Id == user1);
-        //        string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user1) + Path.GetExtension(".jpg"));
-        //        string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user1) + Path.GetExtension(".png"));
-        //        if (System.IO.File.Exists(imageurlforJPG))
-        //        {
-        //            imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName(user1) + System.IO.Path.GetExtension(".jpg");
-        //        }
-        //        else if (System.IO.File.Exists(imageurlforPNG))
-        //        {
-        //            imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName(user1) + System.IO.Path.GetExtension(".png");
-        //        }
-        //        else
-        //        {
-        //            imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName("PlaceHolder") + System.IO.Path.GetExtension(".jpg");
-        //        }
-        //        ViewBag.ImageURL = imageurl;
-        //        ViewBag.Message = Success_Message;
-        //        return View(user);
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //}
-        //[HttpPost]
-        //public ActionResult EditProfile(FormCollection fc)
-        //{
-        //    if (Session["User_Id"] != null && Session["User_Password"] != null)
-        //    {
-        //        var user1 = (string)Session["User_Id"];
-        //        User user = obj.Users.First(a => a.User_Id == user1);
-        //        var Contact_No = fc["contact_no"];
-        //        var Password = fc["password"];
-        //        var Gender = fc["gender"];
-        //        user.Contact_No = Contact_No;
-        //        user.Password = Password;
-        //        user.Gender = Gender;
-        //        //todo  
-        //        obj.SaveChanges();
-        //        return RedirectToAction("EditProfile", "SuperUser", new { Success_Message = "Edit Profile Successfully" });
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //}
     }
 }

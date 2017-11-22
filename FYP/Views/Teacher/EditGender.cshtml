@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "EditGender";
-    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+    Layout = "~/Views/Shared/Teacher_Master_Page.cshtml";
 }
 
 <body>
@@ -11,7 +11,7 @@
                     <div class="panel-heading"><center><b>Change Gender</b></center></div>
                     <div class="panel-body">
 
-                        <form action="/SuperUser/EditGender" method="post" id="validateform">
+                        <form action="/Teacher/EditGender" method="post" id="validateform">
 
                             <label>Gender:</label><br><br>
                             <center>
@@ -28,13 +28,13 @@
                             </center>
                             <br />
 
-                            <input type="submit" onclick="return validate_form()" value="Save" class="btn btn-primary submit-btn form-control" />
+                            <input type="submit" onclick="return validate_form()" value="Save" class="btn btn-primary submit-btn form-control form-control" />
 
                         </form>
 
                     </div>
                 </div>
-                <center><a href="/SuperUser/SuperUserProfile">Go Back</a></center>
+                <center><a href="/Teacher/TeacherProfile">Go Back</a></center>
             </div>
         </div>
     </div>

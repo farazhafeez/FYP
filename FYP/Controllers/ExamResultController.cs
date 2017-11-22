@@ -13,10 +13,8 @@ namespace FYP.Controllers
         //
         // GET: /ExamResult/
         FYP_DB_Entities obj = new FYP_DB_Entities();
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
+        #region Student ExamResult
         public ActionResult Student_ExamResult()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -28,9 +26,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
+        #endregion
+        #region Students ExamResults
         public ActionResult Students_ExamResult()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -55,9 +55,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
+        #endregion
+        #region ExamResult For SuperUser
         public ActionResult ResultForSuperUser()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -66,10 +68,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
+        #endregion
+        #region ExamResult For ExamController
         public ActionResult ResultForExamController()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -78,8 +81,9 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
+        #endregion
     }
 }
