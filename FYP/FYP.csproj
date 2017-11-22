@@ -129,7 +129,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="CacheModel\NoCache.cs" />
     <Compile Include="Controllers\ExamControllerController.cs" />
     <Compile Include="Controllers\ExamResultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
