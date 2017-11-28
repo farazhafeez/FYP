@@ -22,12 +22,21 @@ namespace FYP.Controllers
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
+                List<Subject> Subjects = new List<Subject>();
                 var user = (string)Session["User_Id"];
                 User u = obj.Users.First(a => a.User_Id == user);
                 List<Subject> subjects = u.Subjects.ToList();
-                ViewBag.total_subjects = subjects;
+                foreach(var subject in subjects)
+                {
+                    bool exam = obj.Exams.Any(a => a.Subject_Id == subject.Subject_Id && (a.Status == "MidExam" || a.Status == "FinalExam"));
+                    if(exam)
+                    {
+                        Subjects.Add(subject);
+                    }
+                }
+                //ViewBag.total_subjects = subjects;
                 ViewBag.Success_Message = Success_Message;
-                return View();
+                return View(Subjects);
             }
             else
             {

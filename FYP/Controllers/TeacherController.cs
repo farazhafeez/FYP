@@ -42,7 +42,7 @@ namespace FYP.Controllers
                 {
                     var user = (string)Session["User_Id"];
                     User u = obj.Users.First(a => a.User_Id == user);
-                    List<Subject> subject = u.Subjects.ToList();
+                    IEnumerable<Subject> subject = obj.Subjects.Where(a => a.User_Id == u.User_Id && a.Status == "Active");
                     return View(subject);
                 }
                 catch

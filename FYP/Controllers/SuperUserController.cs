@@ -116,7 +116,7 @@ namespace FYP.Controllers
         }
         #endregion
         #region ManageStudents
-
+        
         public ActionResult ManageStudent()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -162,7 +162,8 @@ namespace FYP.Controllers
 
                 obj.Users.Add(u);
                 obj.SaveChanges();
-                return RedirectToAction("ManageStudent", "SuperUser");
+                TempData["Student_Id"] = u.User_Id;
+                return RedirectToAction("UploadPictureForStudent", "SuperUser");
             }
             else
             {
@@ -202,6 +203,46 @@ namespace FYP.Controllers
             {
                 return RedirectToAction("LoginPage", "Login");
             }
+        }
+
+        public ActionResult UploadPictureForStudent()
+        {
+            var student_id = TempData["Student_Id"];
+            User user = obj.Users.First(a => a.User_Id == (string)student_id);
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult UploadPictureForStudent(HttpPostedFileBase file, string student_id)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                try
+                {
+                    string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(student_id) + Path.GetExtension(".jpg"));
+                    string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(student_id) + Path.GetExtension(".png"));
+                    if (System.IO.File.Exists(imageurlforJPG))
+                    {
+                        System.IO.File.Delete(imageurlforJPG);
+                    }
+                    else if (System.IO.File.Exists(imageurlforPNG))
+                    {
+                        System.IO.File.Delete(imageurlforPNG);
+                    }
+                    string path = Path.Combine(Server.MapPath("~/Content/Images/Pictures"), Path.GetFileName(student_id) + Path.GetExtension(file.FileName));
+                    file.SaveAs(path);
+
+                    return RedirectToAction("ManageStudent", "SuperUser");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return RedirectToAction("ManageStudent", "SuperUser");
         }
 
         #endregion

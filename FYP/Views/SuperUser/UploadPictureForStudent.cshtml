@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "UploadPictureForStudent";
+    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+}
+
+<style>
+
+    #text_div:hover {
+        background-color: #f9f9f9;
+    }
+
+    .imagecontainer {
+        position: relative;
+        width: 230px;
+        margin-top: 10px;
+    }
+
+    .image {
+        height: 230px;
+        width: 230px;
+        object-fit: cover;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: black;
+        overflow: hidden;
+        width: 230px;
+        height: 0;
+        transition: .5s ease;
+        opacity: 0.5;
+    }
+
+    .imagecontainer:hover .overlay {
+        height: 30%;
+    }
+
+    .overlay:hover {
+        background-color: black;
+        opacity: 1;
+    }
+
+    .text {
+        white-space: nowrap;
+        color: white;
+        font-size: 12px;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+
+    font{
+        font-size:13px;
+    }
+</style>
+
+
+<body>
+    <div class="container" style="width:230px;">
+        <div class="imagecontainer">
+            <img class="image thumbnail" src="~/Content/images/Pictures/placeHolder.jpg" />
+            <a href="#" id="update_picture">
+                <div class="overlay">
+                    <div class="text"><span class="glyphicon glyphicon-camera"></span> Update Profile Picture</div>
+                </div>
+            </a>
+        </div>
+        <div class="container">
+            <div class="modal fade" id="selectPictureModal" role="dialog">
+                <div class="modal-dialog modal-md">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Upload Student Picture</h4>
+                        </div>
+                        <div class="modal-body input-file">
+                            <div style="width:100%;height:130px;text-align:center;line-height:130px;" id="text_div">
+                                <font style="font-size:22px;color:gray;">+ Upload Picture</font>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--upload image Modal-->
+            @using (Html.BeginForm("UploadPictureForStudent", "SuperUser", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal fade" id="uploadPictureModal" role="dialog">
+                    <div class="modal-dialog modal-md">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Create Student Picture</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="item"></div>
+                                <img id="displaypicture" style="width:300px; height:auto;object-fit:cover;" />
+                            </div>
+                            <div class="modal-footer">
+                                <input type="text" value="@Model.User_Id" name="student_id" hidden/>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel_btn">Cancel</button>
+                                <input type="submit" value="Upload" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div>
+            <font><b>Student ID:</b></font> @Model.User_Id<br />
+            <font><b>Student Name:</b></font> @Model.First_Name &nbsp;&nbsp;&nbsp;@Model.Last_Name<br />
+            <font><b>Contact No:</b></font> @Model.Contact_No<br />
+            <font><b>Gender:</b></font> @Model.Gender<br /><br />
+        </div>
+        <div>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("ManageStudent", "SuperUser")'">Skip</button>
+        </div>
+    </div>
+</body>
+
+
+
+<script>
+
+        $(document).ready(function () {
+            $("#update_picture").click(function () {
+                $("#selectPictureModal").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+            });
+        });
+        $(function () {
+            $("#cancel_btn").click(function () {
+                $("#input-div").html("");
+                $("#uploadfilepath").val("");
+                $("#uploadPictureModal").modal('hide');
+            });
+        });
+        function readURL(input) {
+            $('#uploadPictureModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            var div = $('<div id="input-div"></div>');
+            var inputs = $("#uploadfilepath").clone();
+            div.append(inputs);
+            $("#item").append(div);
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#displaypicture')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' name='file' id='uploadfilepath' onchange='readURL(this)' class='input-ghost' style='display:none;' >");
+                        element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                        });
+                        $(this).find('#text_div').css("cursor", "pointer");
+                        $(this).find('#text_div').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+        $(function () {
+            bs_input_file();
+        });
+
+</script>

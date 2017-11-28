@@ -529,6 +529,7 @@
     <Content Include="Views\Student\EditGender.cshtml" />
     <Content Include="Views\Student\ChangePassword.cshtml" />
     <Content Include="Views\Student\HomePage.cshtml" />
+    <Content Include="Views\SuperUser\UploadPictureForStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
