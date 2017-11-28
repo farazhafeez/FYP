@@ -7,6 +7,7 @@
     .submit-btn {
         width: 100%;
     }
+
 </style>
 
 <body>
@@ -18,9 +19,10 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading"><center><b>Create An Account For Student</b></center></div>
                     <div class="panel-body">
-
+                        
                         <form action="/SuperUser/AddStudent" method="post">
-                            <img typeof="file" src="~/Content/images/Pictures/placeHolder.jpg" id="img" style="height:auto; width:150px;"/><br>
+                            
+                            @*<img typeof="file" src="~/Content/images/Pictures/placeHolder.jpg" id="img" style="height:auto; width:150px;"/><br>*@
 
                             @*<input type="file" id="input_img" hidden/>*@
 
@@ -81,7 +83,11 @@
                                 <option value="z">Z</option>
                             </select>
                             <label id="Section-error" class="error" for="Section"></label><br><br>
-
+                            <center>
+                                <input type="radio" name="Gender" value="Male" checked>Male &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" name="Gender" value="Female">Female<br><br>
+                            </center>
+                            
                             <input type="submit" class="btn btn-primary submit-btn" value="Register">
                         </form>
                     </div>
@@ -92,12 +98,7 @@
 </body>
 
 <script>
-    $(function () {
-
-        //$("#img").click(function () {
-        //    $("#input_img").click();
-        //});
-
+    
         jQuery.validator.addMethod("pwcheck",
             function (value, element, param) {
                 if (this.optional(element)) {
@@ -222,6 +223,7 @@
                 }
             });
         });
-
-    });
+    
 </script>
+
+

@@ -1,8 +1,7 @@
 ﻿@{
     ViewBag.Title = "EditGender";
-    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+    Layout = "~/Views/Shared/Student_Master_page.cshtml";
 }
-
 <body>
     <div class="container">
         <div class="row">
@@ -11,7 +10,7 @@
                     <div class="panel-heading"><center><b>Change Gender</b></center></div>
                     <div class="panel-body">
 
-                        <form action="/SuperUser/EditGender" method="post" id="validateform">
+                        <form action="/Student/EditGender" method="post" id="validateform">
 
                             <label>Gender:</label><br><br>
                             <center>
@@ -22,19 +21,18 @@
                             }
                             else if (Model.Gender == "Female")
                             {
-                                <input type="radio" name="gender" value="Male" /><font style="margin-left:3px; margin-right:10px;">Male</font>
-                                <input type="radio" name="gender" value="Female" checked /><font style="margin-left:3px; margin-right:10px;">Female</font>
+                                <input type="radio" name="gender" value="Male" ><font style="margin-left:3px; margin-right:10px;">Male</font>
+                                <input type="radio" name="gender" value="Female" checked ><font style="margin-left:3px; margin-right:10px;">Female</font>
                             }
                             </center>
                             <br />
-
                             <input type="submit" onclick="return validate_form()" value="Save" class="btn btn-primary submit-btn form-control" />
 
                         </form>
 
                     </div>
                 </div>
-                <center><a href="/SuperUser/SuperUserProfile">Go Back</a></center>
+                <center><a href="/Student/StudentProfile">Go Back</a></center>
             </div>
         </div>
     </div>
@@ -56,3 +54,4 @@
         });
     });
 </script>
+

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using FYP.Models;
 using System.Data.Entity;
 using System.IO;
+using System.Web.UI;
 
 namespace FYP.Controllers
 {
@@ -15,8 +16,8 @@ namespace FYP.Controllers
         // GET: /ExamController/
 
         FYP_DB_Entities obj = new FYP_DB_Entities();
-        
-        public ActionResult Index()
+        #region ExamController HomePage
+        public ActionResult HomePage()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
@@ -24,10 +25,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
+        #endregion
+        #region ManageExam
         public ActionResult ManageExam()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -39,10 +41,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
+        #endregion
+        #region CreateExam
         public ActionResult CreateExam()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -51,12 +54,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
         [HttpPost]
-        public ActionResult ExamCreated(string[] subjects , string examTerm , string examSession)
+        public ActionResult CreateExam(string[] subjects , string examTerm , string examSession)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
@@ -194,14 +196,14 @@ namespace FYP.Controllers
                 }
 
                 return RedirectToAction("ManageExam", "ExamController");
-
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
+        #endregion
+        #region Enrolled students
         public ActionResult Enrolleds(int Exam_Id)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -211,11 +213,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
-
+        #endregion
+        #region Dropout Students
         public ActionResult DropOuts(int Exam_Id)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -225,11 +227,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
-
+        #endregion
+        #region ExamSchedule
         public ActionResult ExamSchedule(int Exam_Id)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -266,13 +268,11 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-
-        
         [HttpPost]
-        public ActionResult AddExamSchedule(Schedule schedule, string[] rooms)
+        public ActionResult ExamSchedule(Schedule schedule, string[] rooms)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
@@ -308,11 +308,17 @@ namespace FYP.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
+        #endregion
+        #region LocalAPIs
 
-
+        [HttpPost]
+        public JsonResult IsUser_IdAvailable(string User_Id)
+        {
+            return Json(!obj.Users.Any(a => a.User_Id.Equals(User_Id)));
+        }
         [HttpPost]
         public JsonResult Drop(int Enrolled_Id)
         {
@@ -333,7 +339,6 @@ namespace FYP.Controllers
                 return Json(null);
             }
         }
-
 
         [HttpPost]
         public JsonResult Enroll(int Drop_Out_Id)
@@ -356,16 +361,14 @@ namespace FYP.Controllers
             }
         }
 
-
-
         [HttpPost]
         public JsonResult AjaxMethodForDepartment()
         {
             //IEnumerable<Department> departmentList = Enumerable.Empty<Department>();
-            
+
             try
             {
-                 var departmentList = obj.Departments.Select(x => x.Department_Id);
+                var departmentList = obj.Departments.Select(x => x.Department_Id);
                 return Json(departmentList);
             }
             catch
@@ -393,11 +396,11 @@ namespace FYP.Controllers
         [HttpPost]
         public JsonResult AjaxMethodForSubject(string[] batches)
         {
-            
+
             try
             {
                 var subjects = batches.SelectMany(d => obj.Subjects.Where(x => x.Batch_Id == d));
-                var subjectList = subjects.Select(x => new{ x.Subject_Id , x.Subject_Name , x.Section , x.Batch_Id});
+                var subjectList = subjects.Select(x => new { x.Subject_Id, x.Subject_Name, x.Section, x.Batch_Id });
                 return Json(subjectList);
             }
             catch
@@ -412,7 +415,7 @@ namespace FYP.Controllers
             try
             {
                 var e = obj.Exams.Where(x => x.Status != "Conducted");
-                var examList = e.Select(x => new {x.Exam_Id, x.Subject_Id, x.Subject.Subject_Name, x.Batch_Id });
+                var examList = e.Select(x => new { x.Exam_Id, x.Subject_Id, x.Subject.Subject_Name, x.Batch_Id });
                 return Json(examList);
             }
             catch
@@ -435,9 +438,8 @@ namespace FYP.Controllers
                 return Json(null);
             }
         }
-
-
-
+        #endregion
+        #region ManageProfile
         public ActionResult ExamControllerProfile()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
@@ -460,73 +462,86 @@ namespace FYP.Controllers
                     imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName("PlaceHolder") + System.IO.Path.GetExtension(".jpg");
                 }
                 ViewBag.imageURL = imageurl;
+                ViewBag.Message = TempData["EditProfile"];
                 return View(user);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-        public ActionResult EditProfile(string Success_Message)
+
+        public ActionResult EditContactNumber()
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
-                string imageurl = "";
-                var user1 = (string)Session["User_Id"];
-                User user = obj.Users.First(a => a.User_Id == user1);
-                string imageurlforJPG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user1) + Path.GetExtension(".jpg"));
-                string imageurlforPNG = Request.MapPath("~/Content/Images/Pictures/" + Path.GetFileName(user1) + Path.GetExtension(".png"));
-                if (System.IO.File.Exists(imageurlforJPG))
-                {
-                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName(user1) + System.IO.Path.GetExtension(".jpg");
-                }
-                else if (System.IO.File.Exists(imageurlforPNG))
-                {
-                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName(user1) + System.IO.Path.GetExtension(".png");
-                }
-                else
-                {
-                    imageurl = "~/Content/Images/Pictures/" + System.IO.Path.GetFileName("PlaceHolder") + System.IO.Path.GetExtension(".jpg");
-                }
-                ViewBag.ImageURL = imageurl;
-                ViewBag.Message = Success_Message;
+                var userId = Session["User_Id"].ToString();
+                User user = obj.Users.First(a => a.User_Id == userId);
                 return View(user);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
 
         [HttpPost]
-        public ActionResult EditProfile(FormCollection fc)
+        public ActionResult EditContactNumber(string contact_no)
         {
             if (Session["User_Id"] != null && Session["User_Password"] != null)
             {
-                var user1 = (string)Session["User_Id"];
-                User user = obj.Users.First(a => a.User_Id == user1);
-                var Contact_No = fc["contact_no"];
-                var Password = fc["password"];
-                var Gender = fc["gender"];
-                user.Contact_No = Contact_No;
-                user.Password = Password;
-                user.Gender = Gender;
-                //todo  
+                var userId = Session["User_Id"].ToString();
+                var user = obj.Users.First(x => x.User_Id == userId);
+                user.Contact_No = contact_no;
+
                 obj.SaveChanges();
-                return RedirectToAction("EditProfile", "ExamController", new { Success_Message = "Edit Profile Successfully" });
+
+                TempData["EditProfile"] = "Contact number was changed successfully!";
+
+                return RedirectToAction("ExamControllerProfile", "ExamController");
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("LoginPage", "Login");
             }
         }
-        [HttpPost]
-        public JsonResult Password_IsAvailable(string OldPassword)
+
+        public ActionResult EditGender()
         {
-            var user1 = (string)Session["User_Id"];
-            return Json(obj.Users.Any(a => a.User_Id == user1 && a.Password == OldPassword));
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                var userId = Session["User_Id"].ToString();
+                User user = obj.Users.First(a => a.User_Id == userId);
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
         }
 
+        [HttpPost]
+        public ActionResult EditGender(string gender)
+        {
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                var userId = Session["User_Id"].ToString();
+                var user = obj.Users.First(x => x.User_Id == userId);
+                user.Gender = gender;
+
+                obj.SaveChanges();
+
+                TempData["EditProfile"] = "Gender was changed successfully!";
+
+                return RedirectToAction("ExamControllerProfile", "ExamController");
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
+        }
+
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         [HttpPost]
         public ActionResult UploadImage(HttpPostedFileBase file)
         {
@@ -546,7 +561,8 @@ namespace FYP.Controllers
                     }
                     string path = Path.Combine(Server.MapPath("~/Content/Images/Pictures"), Path.GetFileName(user) + Path.GetExtension(file.FileName));
                     file.SaveAs(path);
-                    return RedirectToAction("EditProfile", "ExamController");
+
+                    return RedirectToAction("ExamControllerProfile", "ExamController");
                 }
                 catch (Exception ex)
                 {
@@ -559,13 +575,47 @@ namespace FYP.Controllers
             return View();
         }
 
+        public ActionResult ChangePassword()
+        {
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
+        }
 
+        [HttpPost]
+        public ActionResult ChangePassword(string password)
+        {
+            if (Session["User_Id"] != null && Session["User_Password"] != null)
+            {
+                var userId = Session["User_Id"].ToString();
+                var user = obj.Users.First(x => x.User_Id == userId);
+                user.Password = password;
 
+                obj.SaveChanges();
+
+                TempData["EditProfile"] = "Password was changed successfully !";
+
+                return RedirectToAction("ExamControllerProfile", "ExamController");
+            }
+            else
+            {
+                return RedirectToAction("LoginPage", "Login");
+            }
+        }
+
+        #endregion
+        #region Logout
         public ActionResult Logout()
         {
             Session.Remove("User_Id");
             Session.Remove("Password");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LoginPage", "Login");
         }
+        #endregion
     }
 }

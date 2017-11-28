@@ -4,11 +4,53 @@
 }
 
 <style>
-    #displaypicture {
-        margin-top: 30px;
-        object-fit: cover;
+    #text_div:hover {
+        background-color: #f9f9f9;
+    }
+
+    .imagecontainer {
+        position: relative;
         width: 270px;
+    }
+
+    .image {
         height: 270px;
+        width: 270px;
+        object-fit: cover;
+    }
+
+    .text {
+        white-space: nowrap;
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+
+    table {
+        width: 100%;
+        text-align: left;
+    }
+
+    tr {
+        height: 40px;
+        text-align: center;
+    }
+
+    .bottom-border {
+        border-bottom: 1px solid silver;
+    }
+
+    .top-border {
+        border-top: 1px solid silver;
+    }
+
+    .right-border {
+        border-right: 1px solid silver;
     }
 </style>
 
@@ -16,22 +58,51 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4" style="text-align:left;">
-            <img id="displaypicture" class="img-rounded thumbnail" src="@Url.Content(ViewBag.imageURL)" />
-            <button type="button" class="btn btn-primary" style="text-align:center; width:270px; height:40px;" onclick="location.href='@Url.Action("EditProfile", "Student")'"><span class="glyphicon glyphicon-edit"></span> Edit Profile </button>
+
+            <div class="imagecontainer" style="text-align:right; margin-top:30px;">
+                <img class="image thumbnail" src="@Url.Content(ViewBag.ImageURL)">
+            </div>
+            
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-6">
-            <label>User Id:</label>
-            <input type="text" class="form-control" value="@Model.User_Id" readonly /><br>
-            <label>First Name:</label>
-            <input type="text" class="form-control" value="@Model.First_Name" readonly /><br>
-            <label>Last Name:</label>
-            <input type="text" class="form-control" value="@Model.Last_Name" readonly /><br>
-            <label>Contact Number:</label>
-            <input type="text" class="form-control" value="@Model.Contact_No" readonly /><br>
-            <label>Gender:</label>
-            <input type="text" class="form-control" value="Male" readonly /><br>
+        <div class="col-md-7" style="margin-top:50px;">
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success alert-dismissable fade in" style="text-align:center;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    @ViewBag.Message
+                </div>
+                <td></td>
+            }
+            <table border="0">
+
+                <tr class="bottom-border top-border">
+                    <td class="right-border"><label>User Id:</label></td>
+                    <td><p>@Model.User_Id</p></td>
+                </tr>
+                <tr class="bottom-border">
+                    <td class="right-border"><label>First Name:</label></td>
+                    <td><p>@Model.First_Name</p></td>
+                </tr>
+                <tr class="bottom-border">
+                    <td class="right-border"><label>Last Name:</label></td>
+                    <td><p>@Model.Last_Name</p></td>
+                </tr>
+                <tr>
+                    <td class="bottom-border right-border"><label>Contact Number:</label></td>
+                    <td class="bottom-border"><p>@Model.Contact_No</p></td>
+                    <td style="padding-left:10px"><a href="/Student/EditContactNumber">Edit</a></td>
+                </tr>
+                <tr>
+                    <td class="bottom-border right-border"><label>Gender:</label></td>
+                    <td class="bottom-border"><p>@Model.Gender</p></td>
+                    <td style="padding-left:10px"><a href="/Student/EditGender">Edit</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;"><a href="/Student/ChangePassword">Change Password</a></td>
+                </tr>
+            </table>
         </div>
-        <div class="col-md-1"></div>
     </div>
 </div>
+

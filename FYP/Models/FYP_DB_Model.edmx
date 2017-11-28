@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FYP_DB_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FYP_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Batch">
           <Key>
             <PropertyRef Name="Batch_Id" />
@@ -138,8 +138,8 @@
           <Property Name="Department_Id" Type="nvarchar" MaxLength="255" />
           <Property Name="Section" Type="nvarchar" MaxLength="255" />
           <Property Name="Status" Type="nvarchar" MaxLength="255" />
+          <Property Name="User_Image" Type="varbinary(max)" />
           <Property Name="Gender" Type="nvarchar" MaxLength="255" />
-          <Property Name="User_Image" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <Association Name="Batch$DepartmentBatch">
           <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
@@ -383,7 +383,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FYP_DB_ModelStoreContainer">
+        <EntityContainer Name="FYP_DBModelStoreContainer">
           <EntitySet Name="Batch" EntityType="Self.Batch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Drop_Out" EntityType="Self.Drop_Out" Schema="dbo" store:Type="Tables" />
@@ -483,7 +483,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FYP_DB_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="FYP_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Batch">
           <Key>
             <PropertyRef Name="Batch_Id" />
@@ -651,8 +651,8 @@
           <Property Name="Department_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Section" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="User_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="User_Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Batch" Relationship="Self.User_SemesterUser" FromRole="User" ToRole="Batch" />
           <NavigationProperty Name="Department" Relationship="Self.User_DepartmentUser" FromRole="User" ToRole="Department" />
           <NavigationProperty Name="Drop_Out" Relationship="Self.Drop_Out_UserDrop_Out" FromRole="User" ToRole="Drop_Out" />
@@ -1003,9 +1003,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FYP_DB_ModelStoreContainer" CdmEntityContainer="FYP_DB_Entities">
+        <EntityContainerMapping StorageEntityContainer="FYP_DBModelStoreContainer" CdmEntityContainer="FYP_DB_Entities">
           <EntitySetMapping Name="Batches">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Batch">
+            <EntityTypeMapping TypeName="FYP_DBModel.Batch">
               <MappingFragment StoreEntitySet="Batch">
                 <ScalarProperty Name="Batch_Id" ColumnName="Batch_Id" />
                 <ScalarProperty Name="Starting_Year" ColumnName="Starting_Year" />
@@ -1016,14 +1016,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Department">
+            <EntityTypeMapping TypeName="FYP_DBModel.Department">
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Drop_Out">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Drop_Out">
+            <EntityTypeMapping TypeName="FYP_DBModel.Drop_Out">
               <MappingFragment StoreEntitySet="Drop_Out">
                 <ScalarProperty Name="Drop_Out_Id" ColumnName="Drop_Out_Id" />
                 <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
@@ -1032,7 +1032,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Enrolleds">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Enrolled">
+            <EntityTypeMapping TypeName="FYP_DBModel.Enrolled">
               <MappingFragment StoreEntitySet="Enrolled">
                 <ScalarProperty Name="Enrolled_Id" ColumnName="Enrolled_Id" />
                 <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
@@ -1041,7 +1041,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Exams">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Exam">
+            <EntityTypeMapping TypeName="FYP_DBModel.Exam">
               <MappingFragment StoreEntitySet="Exam">
                 <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
                 <ScalarProperty Name="Total_Marks" ColumnName="Total_Marks" />
@@ -1054,7 +1054,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Freezes">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Freeze">
+            <EntityTypeMapping TypeName="FYP_DBModel.Freeze">
               <MappingFragment StoreEntitySet="Freeze">
                 <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
                 <ScalarProperty Name="Freezing_Date" ColumnName="Freezing_Date" />
@@ -1064,7 +1064,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Options">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Option">
+            <EntityTypeMapping TypeName="FYP_DBModel.Option">
               <MappingFragment StoreEntitySet="Options">
                 <ScalarProperty Name="Option_Id" ColumnName="Option_Id" />
                 <ScalarProperty Name="Options" ColumnName="Options" />
@@ -1074,7 +1074,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Papers">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Paper">
+            <EntityTypeMapping TypeName="FYP_DBModel.Paper">
               <MappingFragment StoreEntitySet="Paper">
                 <ScalarProperty Name="Paper_Id" ColumnName="Paper_Id" />
                 <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
@@ -1084,7 +1084,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Questions">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Question">
+            <EntityTypeMapping TypeName="FYP_DBModel.Question">
               <MappingFragment StoreEntitySet="Question">
                 <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
                 <ScalarProperty Name="Questions" ColumnName="Questions" />
@@ -1094,7 +1094,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Results">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Result">
+            <EntityTypeMapping TypeName="FYP_DBModel.Result">
               <MappingFragment StoreEntitySet="Result">
                 <ScalarProperty Name="Result_Id" ColumnName="Result_Id" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
@@ -1106,7 +1106,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rooms">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Room">
+            <EntityTypeMapping TypeName="FYP_DBModel.Room">
               <MappingFragment StoreEntitySet="Room">
                 <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
                 <ScalarProperty Name="Room_Capacity" ColumnName="Room_Capacity" />
@@ -1114,7 +1114,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Schedules">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Schedule">
+            <EntityTypeMapping TypeName="FYP_DBModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
                 <ScalarProperty Name="Schedule_Id" ColumnName="Schedule_Id" />
                 <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
@@ -1125,7 +1125,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
-            <EntityTypeMapping TypeName="FYP_DB_Model.Subject">
+            <EntityTypeMapping TypeName="FYP_DBModel.Subject">
               <MappingFragment StoreEntitySet="Subject">
                 <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
                 <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
@@ -1137,7 +1137,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="FYP_DB_Model.User">
+            <EntityTypeMapping TypeName="FYP_DBModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1149,8 +1149,8 @@
                 <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
                 <ScalarProperty Name="Section" ColumnName="Section" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="User_Image" ColumnName="User_Image" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

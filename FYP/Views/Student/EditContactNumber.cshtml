@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "EditContactNumber";
-    Layout = "~/Views/Shared/SuperUserLayout.cshtml";
+    Layout = "~/Views/Shared/Student_Master_page.cshtml";
 }
+
 
 <body>
     <div class="container">
@@ -11,19 +12,19 @@
                     <div class="panel-heading"><center><b>Change Contact Number</b></center></div>
                     <div class="panel-body">
 
-                        <form action="/SuperUser/EditContactNumber" method="post" id="validateform">
+                        <form action="/Student/EditContactNumber" method="post" id="validateform">
 
                             <label>Contact Number:</label>
 
                             <input type="text" class="form-control" name="contact_no" value="@Model.Contact_No"/><br>
 
-                            <input type="submit" onclick="return validate_form()" value="Save" class="btn btn-primary submit-btn forms form-control" />
+                            <input type="submit" onclick="return validate_form()" value="Save" class="btn btn-primary submit-btn form-control" />
 
                         </form>
 
                     </div>
                 </div>
-                <center><a href="/SuperUser/SuperUserProfile">Go Back</a></center>
+                <center><a href="/Student/StudentProfile">Go Back</a></center>
             </div>
         </div>
     </div>
@@ -55,3 +56,5 @@
         });
     });
 </script>
+
+
